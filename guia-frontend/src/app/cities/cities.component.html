@@ -1,0 +1,19 @@
+<!-- cities.component.html -->
+<div class="cities-container">
+    <h2 class="mb-4">Ciudades sede</h2>
+  <section 
+    class="city-card" 
+    *ngFor="let c of city" 
+    (click)="goToCity(c.id.toString())"
+  >
+    <!-- Imagen de fondo -->
+    <div class="city-image">
+      <img [src]="c.imagenPrincipal" [alt]="c.name" />
+    </div>
+
+    <!-- Superposición con el nombre -->
+    <div class="city-overlay">
+      <h2>{{ c.name }}</h2>
+    </div>
+  </section>
+</div>

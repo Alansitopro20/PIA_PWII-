@@ -1,0 +1,103 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card p-4 shadow contenedor">
+    <h2 class="text-center mb-4">Registro</h2>
+
+    <form [formGroup]="signinForm" (ngSubmit)="signin()" enctype="multipart/form-data">
+      
+      <!-- Fotografía -->
+      <div class="mb-4">
+        <label for="photo" class="form-label">Fotografía</label>
+        <div class="d-flex flex-column align-items-center">
+          <!-- Previsualización centrada -->
+          <div *ngIf="previewUrl" class="mb-3">
+            <img
+              [src]="previewUrl"
+              alt="Previsualización"
+              class="img-thumbnail rounded-circle shadow-sm"
+              width="120"
+              height="120"
+            />
+          </div>
+          <!-- Selector de archivo centrado -->
+          <input
+            id="photo"
+            type="file"
+            class="form-control w-75"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
+        </div>
+      </div>
+
+      <!-- Tipo de usuario -->
+      <div class="form-group mt-3">
+        <label class="form-label">Tipo de usuario:</label>
+        <div class="d-flex justify-content-between">
+          <label class="flex-fill me-2">
+            <input
+              type="radio"
+              value="turista"
+              formControlName="type"
+              class="btn-check"
+              id="turista"
+            />
+            <label class="btn btn-outline-primary w-100" for="turista">Turista</label>
+          </label>
+
+          <label class="flex-fill">
+            <input
+              type="radio"
+              value="local"
+              formControlName="type"
+              class="btn-check"
+              id="local"
+            />
+            <label class="btn btn-outline-success w-100" for="local">Local</label>
+          </label>
+        </div>
+      </div>
+
+      <!-- Ciudad (solo si es local) -->
+      <div *ngIf="isLocal" class="form-group mt-3">
+        <label for="city" class="form-label">Ciudad:</label>
+        <select id="city" class="form-control" formControlName="city">
+          <option value="">Selecciona tu ciudad</option>
+          <option value="CDMX">Ciudad de México</option>
+          <option value="Monterrey">Monterrey</option>
+          <option value="Guadalajara">Guadalajara</option>
+        </select>
+      </div>
+
+      <!-- Nombre -->
+      <div class="mb-3 mt-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input id="name" type="text" class="form-control" formControlName="name" />
+      </div>
+
+      <!-- Correo -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input id="email" type="email" class="form-control" formControlName="email" />
+      </div>
+
+      <!-- Contraseña -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input id="password" type="password" class="form-control" formControlName="password" />
+      </div>
+
+      <!-- Botón -->
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
+        Guardar
+      </button>
+
+      <!-- Toasts -->
+      <div *ngIf="showError" class="text-danger text-center mt-3">
+        Error al registrarse 😢
+      </div>
+      <div *ngIf="toastMessage" class="alert alert-success mt-3 text-center">
+        {{ toastMessage }}
+      </div>
+    </form>
+  </div>
+</div>
