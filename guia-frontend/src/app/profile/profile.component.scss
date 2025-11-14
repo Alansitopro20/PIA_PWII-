@@ -1,0 +1,26 @@
+.card {
+    width: 100rem;  
+    border-radius: 1rem;
+    background-color: var(--color-dark-green);
+}
+
+.badge {
+    margin-right: 10px;
+}
+
+.profile-photo {
+  width: 120px;       
+  height: 120px;
+  object-fit: cover;  
+  border-radius: 50%; 
+  border: 2px solid #dee2e6; 
+}
+
+
+h4 {
+    font-weight: 600;
+}
+
+.text-justify {
+    text-align: justify;
+}

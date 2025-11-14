@@ -1,0 +1,38 @@
+/* Centrar todo verticalmente en la pantalla */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tarjeta principal */
+.card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+  
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.label-login{
+  color: var(--color-white);
+  letter-spacing: 0.5px;
+}
+
+/* Mensajes de error */
+.text-danger {
+  font-size: 0.85rem;
+}
+
+/* Toast personalizado */
+.alert {
+  border-radius: 10px;
+  font-weight: 500;
+}

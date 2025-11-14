@@ -1,0 +1,36 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card p-4 shadow">
+    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="mb-3">
+        <label for="email" class="form-label label-login">Correo electrónico</label>
+        <input id="email" type="email" class="form-control" formControlName="email" />
+        <div class="text-danger small" *ngIf="f['email'].invalid && f['email'].touched">
+          Ingresa un correo válido
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label label-login">Contraseña</label>
+        <input id="password" type="password" class="form-control" formControlName="password" />
+        <div class="text-danger small" *ngIf="f['password'].invalid && f['password'].touched">
+          La contraseña debe tener al menos 6 caracteres
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
+        Entrar
+      </button>
+
+      <div *ngIf="showError" class="text-danger text-center mt-3">
+        Error al iniciar sesión 😢
+      </div>
+    </form>
+
+    <div *ngIf="toastMessage" class="alert alert-success mt-3 text-center">
+      {{ toastMessage }}
+    </div>
+  </div>
+</div>
+
