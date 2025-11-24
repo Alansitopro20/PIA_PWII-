@@ -11,6 +11,7 @@ import { CityDetailComponent } from './city-detail/city-detail.component';
 import { PlacesDetailComponent } from './places-detail/places-detail.component';
 import { StadiumDetailComponent } from './stadium-detail/stadium-detail.component';
 import { StayDetailComponent } from './stay-detail/stay-detail.component';
+import { PostsComponent } from './posts/posts.component';
 
 
 export const routes: Routes = [
@@ -32,6 +33,10 @@ export const routes: Routes = [
     },{
         path:'stadiums',
         component: StadiumsComponent,
+    },{
+        path:'posting',
+        component: PostsComponent
+
     },{
         path:'stay',
         component: StayComponent,

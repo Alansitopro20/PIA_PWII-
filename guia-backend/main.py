@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import userrouter,productrouter,cityrouter
+from routers import userrouter,productrouter,cityrouter,postsrouter
 from fastapi.staticfiles import StaticFiles
 import os
 
@@ -19,6 +19,9 @@ app.add_middleware(
 app.include_router(userrouter.router)
 app.include_router(productrouter.router)
 app.include_router(cityrouter.router)
+app.include_router(productrouter.router)
+app.include_router(postsrouter.router)
+
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 # Carpeta de uploads
 UPLOAD_DIR = os.path.join(os.getcwd(), "uploads")
