@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CityModel } from '../models_/citymodel';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,4 +27,10 @@ export class CityService {
       
     });
   }
+
+  getCityByName(name: string): Observable<CityModel> {
+    return this.http.get<CityModel>(`http://localhost:8000/cities/${name}`);
+  }
+
+
 }

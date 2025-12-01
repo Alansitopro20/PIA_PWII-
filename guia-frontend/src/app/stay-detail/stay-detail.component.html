@@ -1,1 +1,31 @@
-<p>stay-detail works!</p>
+<div class="stay-detail-container" *ngIf="stay">
+
+  <!-- Imagen principal -->
+  <div class="header-image">
+    <img [src]="'http://localhost:8000/' + stay.imagenPrincipal" />
+  </div>
+
+  <h1>{{ stay.name }}</h1>
+
+  <p class="description">{{ stay.descripcion }}</p>
+
+  <!-- Información principal -->
+  <div class="info-box">
+    <p><strong>Ciudad:</strong> {{ stay.ciudad }}</p>
+    <p><strong>Precio por noche:</strong> {{ stay.precio | currency : 'MXN' }}</p>
+  </div>
+
+  <!-- Galería -->
+  <div class="gallery" *ngIf="stay.galeria?.length">
+    <h3>Galería</h3>
+
+    <div class="gallery-grid">
+      <img 
+        *ngFor="let img of stay.galeria"
+        [src]="'http://localhost:8000/' + img"
+        class="gallery-item"
+      />
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,32 @@
+.place-card {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+  }
+
+  .place-overlay h2 {
+    transition: text-shadow 0.25s ease, transform 0.25s ease;
+  }
+
+  &:hover .place-overlay h2 {
+    text-shadow: 0 0 10px rgba(255,255,255,0.8);
+    transform: scale(1.05);
+  }
+}
+
+.place-image img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 14px;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.place-card:hover .place-image img {
+  filter: brightness(0.9);
+  transform: scale(1.03);
+}

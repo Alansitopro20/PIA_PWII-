@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional,List
+from fastapi import UploadFile, File
 
 class City(BaseModel):
     id: str | None = None
@@ -10,5 +11,5 @@ class City(BaseModel):
     gentilicio: str
     estadoRep: str
     imagenPrincipal: str
-    galeria: Optional[List[str]] = []  # Lista de URLs o rutas de imágenes
+    galeria: List[str] = []  # <--- ESTA PARTE ESTÁ BIEN
     

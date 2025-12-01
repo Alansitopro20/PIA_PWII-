@@ -1,19 +1,24 @@
 <!-- cities.component.html -->
 <div class="cities-container">
-    <h2 class="mb-4">Ciudades sede</h2>
+  <h2 class="mb-4">Ciudades sede</h2>
+
   <section 
     class="city-card" 
-    *ngFor="let c of city" 
-    (click)="goToCity(c.id.toString())"
+    *ngFor="let city of cities" 
+    (click)="goToCity(city.name)"
   >
     <!-- Imagen de fondo -->
     <div class="city-image">
-      <img [src]="c.imagenPrincipal" [alt]="c.name" />
+      <img 
+        [src]="'http://localhost:8000/' + city.imagenPrincipal"
+        class="city-photo"
+      />
     </div>
 
     <!-- Superposición con el nombre -->
     <div class="city-overlay">
-      <h2>{{ c.name }}</h2>
+      <h2>{{ city.name }}</h2>
     </div>
   </section>
 </div>
+

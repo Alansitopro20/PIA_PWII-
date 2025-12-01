@@ -1,1 +1,31 @@
-<p>stadium-detail works!</p>
+<div class="stadium-detail-container" *ngIf="stadium">
+
+  <!-- Imagen principal -->
+  <div class="header-image">
+    <img [src]="'http://localhost:8000/' + stadium.imagenPrincipal" />
+  </div>
+
+  <h1>{{ stadium.name }}</h1>
+
+  <p class="description">{{ stadium.descripcion }}</p>
+
+  <!-- Información principal -->
+  <div class="info-box">
+    <p><strong>Ciudad:</strong> {{ stadium.ciudad }}</p>
+    <p><strong>Capacidad:</strong> {{ stadium.capacidad | number }}</p>
+  </div>
+
+  <!-- Galería -->
+  <div class="gallery" *ngIf="stadium.galeria?.length">
+    <h3>Galería</h3>
+
+    <div class="gallery-grid">
+      <img 
+        *ngFor="let img of stadium.galeria"
+        [src]="'http://localhost:8000/' + img"
+        class="gallery-item"
+      />
+    </div>
+  </div>
+
+</div>

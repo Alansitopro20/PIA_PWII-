@@ -1,0 +1,26 @@
+<div class="post-container">
+
+  <h2>Crear nuevo Post</h2>
+
+  <!-- Título -->
+  <label>Título</label>
+  <input type="text" [(ngModel)]="title" placeholder="Escribe un título">
+
+  <!-- Contenido -->
+  <label>Contenido</label>
+  <textarea [(ngModel)]="content" placeholder="Escribe tu post"></textarea>
+
+  <!-- Imagen -->
+  <label>Imagen</label>
+  <input type="file" accept="image/*" (change)="onImageSelected($event)">
+
+  <!-- Preview -->
+  <div *ngIf="imageUrl" class="preview">
+    <p>Vista previa:</p>
+    <img [src]="imageUrl" alt="Vista previa">
+  </div>
+
+  <!-- Botón -->
+  <button (click)="submitPost()">Publicar</button>
+
+</div>

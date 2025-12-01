@@ -1,0 +1,186 @@
+/* --- Aurora --- */
+:host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 190, 255, 0.25),
+    rgba(0, 255, 150, 0.25),
+    rgba(255, 0, 120, 0.25)
+  );
+  filter: blur(150px);
+  animation: auroraMove 14s ease-in-out infinite alternate;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+@keyframes auroraMove {
+  0% { transform: translate(-10%, -10%); }
+  100% { transform: translate(10%, 10%); }
+}
+
+/* === Card principal === */
+.contenedor {
+  position: relative;
+  z-index: 1;
+  width: 430px;
+  background: rgba(10, 15, 35, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  margin-bottom: 80px;
+  border: 2px solid transparent;
+
+  background: linear-gradient(#0b122f, #0b122f) padding-box,
+              linear-gradient(135deg, #00d27f, #ff3d44, #0099ff) border-box;
+
+  animation: borderFlow 8s linear infinite;
+  box-shadow: 0 0 25px rgba(0, 255, 180, 0.25);
+}
+
+@keyframes borderFlow {
+  0%   { background-size: 300% 300%; background-position: 0% 50%; }
+  100% { background-size: 300% 300%; background-position: 100% 50%; }
+}
+
+/* === Título === */
+.contenedor h2 {
+  color: #e9f5ff;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0,150,255,0.45);
+}
+
+/* === Labels === */
+.form-label {
+  color: #cfe2ff;
+  font-weight: 500;
+}
+
+/* === Inputs === */
+.form-control {
+  background: rgba(255,255,255,0.07);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  transition: 0.3s;
+
+  &:focus {
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 0 10px #00eaff88;
+    color: white;
+  }
+}
+
+/* === Selector de foto === */
+#photo {
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: #d7e3ff;
+  border: 1px solid rgba(255,255,255,0.15);
+
+  &:hover {
+    background: rgba(255,255,255,0.18);
+  }
+}
+
+/* === Preview redondito === */
+.img-thumbnail {
+  border: 2px solid #00eaff88;
+  box-shadow: 0 0 15px rgba(0,255,215,0.35);
+}
+
+/* === Radios de tipo de usuario (turista/local) === */
+.btn-check + .btn {
+  border-width: 2px !important;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: 0.25s ease;
+}
+
+#turista + label.btn {
+  border-color: #0099ff;
+  color: #a4c9ff;
+}
+#turista:checked + label.btn {
+  background: #0099ff;
+  color: #001;
+  box-shadow: 0 0 12px rgba(0,150,255,0.7);
+}
+
+#local + label.btn {
+  border-color: #00d27f;
+  color: #b6ffe2;
+}
+#local:checked + label.btn {
+  background: #00d27f;
+  color: #001;
+  box-shadow: 0 0 12px rgba(0,255,150,0.7);
+}
+
+/* === Select ciudad === */
+select.form-control {
+  background: rgba(255,255,255,0.1);
+  color: #d9e7ff;
+  border-radius: 10px;
+
+  &:focus {
+    box-shadow: 0 0 10px #00eaff88;
+  }
+}
+
+/* === Botón Guardar === */
+button.btn-primary {
+  background: linear-gradient(90deg, #00ffbf, #00c6ff);
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #002;
+  box-shadow: 0 0 12px rgba(0,255,215,0.6);
+  transition: 0.25s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0,255,215,0.9);
+  }
+}
+
+/* === Toasts === */
+.alert-success {
+  background: rgba(0,255,150,0.15);
+  border: 1px solid rgba(0,255,150,0.35);
+  color: #7cffc2;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.text-danger {
+  color: #ff8c8c !important;
+}
+
+
+
+/* === Botón para ir al Login (estilo neón outline) === */
+.btn-login-outline {
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: 0.25s;
+  cursor: pointer;
+
+  background: transparent;
+  border: 2px solid #00eaff;
+  color: #a2eaff;
+
+  box-shadow: 0 0 10px rgba(0,200,255,0.3);
+
+  &:hover {
+    background: rgba(0,200,255,0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0,200,255,0.6);
+    color: white;
+  }
+}

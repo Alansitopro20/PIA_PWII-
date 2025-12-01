@@ -1,1 +1,22 @@
-<p>stadiums works!</p>
+<!-- stadium.component.html -->
+<div class="stadium-container">
+    <h2 class="mb-4">Estadios sede</h2>
+  <section 
+    class="stadium-card" 
+    *ngFor="let stadium of stadiums" 
+    (click)="goToStadium(stadium.name)"
+  >
+    <!-- Imagen de fondo -->
+    <div class="stadium-image">
+      <img 
+        [src]="'http://localhost:8000/' + stadium.imagenPrincipal"
+        class="stadium-photo"
+      />
+    </div>
+
+    <!-- Superposición con el nombre -->
+    <div class="stadium-overlay">
+      <h2>{{ stadium.name }}</h2>
+    </div>
+  </section>
+</div>

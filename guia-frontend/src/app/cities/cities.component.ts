@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { CityModel } from '../models_/citymodel';
 import { CityService } from '../services_/cityservice';
-import { NgFor } from '@angular/common';
+import { NgFor, CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-
 
 @Component({
   selector: 'app-cities',
@@ -13,26 +11,27 @@ import { CommonModule } from '@angular/common';
   styleUrl: './cities.component.scss'
 })
 export class CitiesComponent {
-  city:Array<CityModel>=[]; 
-  token:string='';
+
+  cities: CityModel[] = [];   // ✅ Nombre corregido
+  token: string = '';
 
   constructor(private cityService: CityService, private router: Router) {
-    const user = sessionStorage.getItem('user'); // ✅ Recuperar user del almacenamiento
+    const user = sessionStorage.getItem('user');
+
     if (user) {
       const info = JSON.parse(user);
-      this.token = info.token; // ✅ Obtener token
-      this.loadCities(); // 👈 ¡Aquí se llama correctamente!
+      this.token = info.token;
+      this.loadCities();        // 👈 cargar ciudades
     } else {
       console.error('No hay token, el usuario no está logueado');
     }
   }
 
-
- loadCities() {
+  loadCities() {
     this.cityService.getall(this.token).subscribe(
-      cities => {
-        this.city = cities;
-        console.log('Cities loaded:', this.city);
+      response => {
+        this.cities = response;  // ✅ Guardar en "cities"
+        console.log('Cities loaded:', this.cities);
       },
       error => {
         console.error('Failed to load cities:', error);
@@ -40,8 +39,7 @@ export class CitiesComponent {
     );
   }
 
-  goToCity(id: string) {
-    this.router.navigate(['/city', id]);
+  goToCity(name: string) {
+    this.router.navigate(['/cities', name]);  // ✅ Ruta corregida
   }
 }
-

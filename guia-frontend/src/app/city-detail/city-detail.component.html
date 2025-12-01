@@ -1,1 +1,32 @@
-<p>city-detail works!</p>
+<div class="city-detail-container" *ngIf="city">
+
+  <!-- Imagen principal -->
+  <div class="header-image">
+    <img [src]="'http://localhost:8000/' + city.imagenPrincipal" />
+  </div>
+
+  <h1>{{ city.name }}</h1>
+
+  <p class="description">{{ city.description }}</p>
+
+  <div class="info-box">
+    <p><strong>Población:</strong> {{ city.poblacion | number }}</p>
+    <p><strong>Clima:</strong> {{ city.clima }} °C</p>
+    <p><strong>Gentilicio:</strong> {{ city.gentilicio }}</p>
+    <p><strong>Estado de la República:</strong> {{ city.estadoRep }}</p>
+  </div>
+
+  <!-- Galería -->
+  <div class="gallery" *ngIf="city.galeria?.length">
+    <h3>Galería</h3>
+
+    <div class="gallery-grid">
+      <img 
+        *ngFor="let img of city.galeria"
+        [src]="'http://localhost:8000/' + img"
+        class="gallery-item"
+      />
+    </div>
+  </div>
+
+</div>

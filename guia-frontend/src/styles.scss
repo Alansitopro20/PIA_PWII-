@@ -1,4 +1,4 @@
-/* 🌈 Paleta global de colores */
+/* 🌈 PALETA GLOBAL */
 :root {
   color-scheme: light dark;
 
@@ -10,12 +10,17 @@
   --color-white: #ffffff;
   --color-selectedRed: #8a2d32;
 
-  /* Tonos secundarios / neutrales */
+  /* Tonos neutrales */
   --color-gray-dark: #1F2937;
   --color-gray-light: #f4f4f4;
+
+  /* Tonos efecto neón / cristal (útiles para tus páginas modernas) */
+  --glass-light: rgba(255,255,255,0.15);
+  --glass-dark: rgba(0,0,0,0.35);
+  --glass-border: rgba(255,255,255,0.12);
 }
 
-/* 🔧 Reset básico */
+/* 🔧 RESET BÁSICO */
 * {
   margin: 0;
   padding: 0;
@@ -23,30 +28,38 @@
   scroll-behavior: smooth;
 }
 
-/* 🖥️ Estructura base */
 html, body {
   height: 100%;
   width: 100%;
   font-family: "League Spartan", sans-serif;
-  color: var(--color-white); /* Texto global blanco */
-  background: linear-gradient(180deg, var(--color-black) 0%, var(--color-gray-dark) 150%);
+  background: linear-gradient(180deg, var(--color-black), var(--color-gray-dark));
+  color: var(--color-white);
   overflow-x: hidden;
 }
 
-/* ✨ Tipografía global */
+/* ✨ TIPOGRAFÍA GLOBAL */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  color: var(--color-yellow); /* Headers amarillos */
+  color: var(--color-blue);
   font-family: "League Spartan", sans-serif;
 }
 
 p, span, li, label, small, strong, em, div {
-  color: var(--color-white); /* Texto normal blanco */
+  color: var(--color-white);
   line-height: 1.6;
-  
 }
 
-/* 🔘 Botones globales */
+/* 🧱 TARJETAS GENÉRICAS */
+.card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* 🔘 BOTONES */
 button, .btn {
   border: none;
   border-radius: 8px;
@@ -57,60 +70,45 @@ button, .btn {
   color: var(--color-white);
 }
 
-/* Botón principal */
+/* Principal */
 .btn-primary,
 button[type="submit"] {
   background-color: var(--color-red);
-  color: var(--color-white);
 
-  &:hover {
-    background-color: var(--color-selectedRed);
-  }
+}
+.btn-primary:hover,
+button[type="submit"]:hover {
+  background-color: var(--color-selectedRed);
 }
 
-/* Botón de advertencia (amarillo) */
+/* Advertencia */
 .btn-warning {
   background-color: var(--color-yellow);
   color: var(--color-black);
-
-  &:hover {
-    background-color: #ffda79;
-  }
+}
+.btn-warning:hover {
+  background-color: #ffda79;
 }
 
-/* Botón de peligro */
+/* Peligro */
 .btn-danger {
   background-color: var(--color-red);
-  color: var(--color-white);
-
-  &:hover {
-    background-color: #e84118;
-  }
+}
+.btn-danger:hover {
+  background-color: #e84118;
 }
 
-/* 🧱 Enlaces */
+/* 🧵 ENLACES */
 a {
   color: var(--color-blue);
   text-decoration: none;
   transition: color 0.2s ease;
-
-  &:hover {
-    color: var(--color-yellow);
-  }
+}
+a:hover {
+  color: var(--color-yellow);
 }
 
-/* 🪶 Tarjetas o secciones */
-.card {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 1.5rem;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  color: var(--color-white);
-}
-
-/* 🧍 Formularios */
+/* 🧍 INPUTS Y FORMULARIOS */
 input, textarea, select {
   border-radius: 8px;
   border: 1px solid #444;
@@ -118,15 +116,28 @@ input, textarea, select {
   width: 100%;
   background-color: rgba(255,255,255,0.1);
   color: var(--color-white);
-
-  &:focus {
-    border-color: var(--color-blue);
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(48,79,254,0.3);
-  }
+  transition: 0.25s ease;
 }
 
-/* 🧾 Placeholder */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-blue);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(48,79,254,0.3);
+}
+
+/* Placeholder */
 ::placeholder {
   color: rgba(255, 255, 255, 0.6);
+}
+
+/* 🪟 ANIMACIONES REUTILIZABLES */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn .7s ease-out;
 }

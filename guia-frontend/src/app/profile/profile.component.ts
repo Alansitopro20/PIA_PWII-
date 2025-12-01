@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Userservice } from '../services_/userservice';
 import { UserModel } from '../models_/usermodel';
 import { NgFor, NgIf } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
-  imports: [NgIf],
+  imports: [NgIf, RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
