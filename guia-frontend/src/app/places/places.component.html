@@ -1,1 +1,22 @@
-<p>places works!</p>
+<!-- places.component.html -->
+<div class="places-container">
+    <h2 class="mb-4">Puntos turísticos</h2>
+  <section 
+    class="place-card" 
+    *ngFor="let place of places" 
+    (click)="goToPlace(place.name)"
+  >
+    <!-- Imagen de fondo -->
+    <div class="place-image">
+      <img 
+        [src]="'http://localhost:8000/' + place.imagenPrincipal"
+        class="place-photo"
+      />
+    </div>
+
+    <!-- Superposición con el nombre -->
+    <div class="place-overlay">
+      <h2>{{ place.name }}</h2>
+    </div>
+  </section>
+</div>

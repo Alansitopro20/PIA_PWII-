@@ -1,36 +1,56 @@
-<div class="container mt-5 d-flex justify-content-center">
-  <div class="card p-4 shadow">
-    <h2 class="text-center mb-4">Iniciar Sesión</h2>
+<div class="worldcup-bg">
+  <div class="aurora"></div>
+  <div class="particles"></div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <div class="mb-3">
-        <label for="email" class="form-label label-login">Correo electrónico</label>
-        <input id="email" type="email" class="form-control" formControlName="email" />
+  <div class="login-container">
+    <div class="login-card border-animated">
+
+      <div class="header-wc text-center mb-4">
+        <img src="https://upload.wikimedia.org/wikipedia/en/f/fd/2026_FIFA_ World_Cup_bid_logo.png" class="wc-logo" />
+        <h2 class="title">Mundial 2026 • Turismo</h2>
+        <p class="subtitle">Explora ciudades sede, estadios y experiencias</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" class="animated-input" />
+          <span class="focus-border"></span>
+        </div>
+
         <div class="text-danger small" *ngIf="f['email'].invalid && f['email'].touched">
           Ingresa un correo válido
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="password" class="form-label label-login">Contraseña</label>
-        <input id="password" type="password" class="form-control" formControlName="password" />
+        <div class="input-group mt-3">
+          <label>Contraseña</label>
+          <input type="password" formControlName="password" class="animated-input" />
+          <span class="focus-border"></span>
+        </div>
+
         <div class="text-danger small" *ngIf="f['password'].invalid && f['password'].touched">
           La contraseña debe tener al menos 6 caracteres
         </div>
-      </div>
 
-      <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
-        Entrar
+        <button class="btn-login-neon" type="submit" [disabled]="loading">
+          {{ loading ? "Cargando..." : "Entrar" }}
+        </button>
+
+        <button type="button" class="btn-login-neon" [routerLink]="['/register']">
+        Registrar
       </button>
+      </form>
 
-      <div *ngIf="showError" class="text-danger text-center mt-3">
-        Error al iniciar sesión 😢
+      <div *ngIf="toastMessage" class="toast-custom">
+        {{ toastMessage }}
       </div>
-    </form>
 
-    <div *ngIf="toastMessage" class="alert alert-success mt-3 text-center">
-      {{ toastMessage }}
+      <div class="flags mt-4">
+        <img src="https://flagcdn.com/us.svg">
+        <img src="https://flagcdn.com/mx.svg">
+        <img src="https://flagcdn.com/ca.svg">
+      </div>
+
     </div>
   </div>
 </div>
-

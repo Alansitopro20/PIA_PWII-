@@ -1,1 +1,30 @@
-<p>places-detail works!</p>
+<div class="place-detail-container" *ngIf="place">
+
+  <!-- Imagen principal -->
+  <div class="header-image">
+    <img [src]="'http://localhost:8000/' + place.imagenPrincipal" />
+  </div>
+
+  <h1>{{ place.name }}</h1>
+
+  <p class="description">{{ place.descripcion }}</p>
+
+  <div class="info-box">
+    <p><strong>Categoría:</strong> {{ place.categoria }}</p>
+    <p><strong>Calificación:</strong> ⭐ {{ place.calificacion }}</p>
+  </div>
+
+  <!-- Galería -->
+  <div class="gallery" *ngIf="place.galeria?.length">
+    <h3>Galería</h3>
+
+    <div class="gallery-grid">
+      <img 
+        *ngFor="let img of place.galeria"
+        [src]="'http://localhost:8000/' + img"
+        class="gallery-item"
+      />
+    </div>
+  </div>
+
+</div>

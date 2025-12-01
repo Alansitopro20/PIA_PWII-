@@ -8,9 +8,9 @@ import { PostService } from '../services_/postsservice';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.css']
+  styleUrls: ['./posts.component.scss']
 })
-export class PostComponent {
+export class PostsComponent {
 
   title: string = '';
   content: string = '';

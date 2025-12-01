@@ -44,16 +44,19 @@ export const routes: Routes = [
         path: 'cities',
         component:CitiesComponent,
     },{
-        path: 'cities/:id', 
+        path: 'cities/:name', 
         component: CityDetailComponent
     },{
-        path: 'stay/:id', 
+        path: 'stay/:name', 
         component: StayDetailComponent
     },{
-        path:'places/:id',
+        path:'places/:name',
         component: PlacesDetailComponent
     },{
-        path:'stadium/:id',
+        path:'stadium/:name',
         component: StadiumDetailComponent
+    },{
+        path:'home',
+        component: HomeComponent,
     }
 ];

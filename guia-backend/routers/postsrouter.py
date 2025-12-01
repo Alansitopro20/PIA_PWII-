@@ -34,8 +34,8 @@ async def create_new_post(
     time = now.strftime("%H:%M")
 
     post_data = {
-        "author_name": ["unkonwn"],
-        "author_id": ["sub"],
+        "author_name": current_user["unkonwn"],
+        "author_id": current_user["sub"],
         "title": title,
         "category": category,
         "description": description,

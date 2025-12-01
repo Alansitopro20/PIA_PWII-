@@ -3,10 +3,12 @@
   import { UserCredentials } from '../models_/usermodel';
   import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl  } from '@angular/forms';
   import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+  
 
   @Component({
     selector: 'app-login',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, RouterModule],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss'
   })
