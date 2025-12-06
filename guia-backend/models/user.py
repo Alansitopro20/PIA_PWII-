@@ -6,7 +6,7 @@ class User(BaseModel):
     email: str
     name: str
     password: str
-    type: str
+    type: str # local o turista
     photo: Optional[str] = None  # Aquí guardaremos solo el nombre o la URL del archivo
     
 class UserCredentials(BaseModel):

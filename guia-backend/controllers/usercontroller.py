@@ -32,11 +32,19 @@ async def login_dev(username: str, password: str):
     
     # Generar token JWT
     token_data = {
-        "sub": str(user["_id"]),
-        "email": user["email"]
+        "sub": str(user["_id"]),  # ✔ importante
+        "email": user["email"],
+        "name":user["name"],
+        "type":user["type"]
     }
+
     token = create_access_token(token_data)
-    return {"access_token": token, "token_type": "bearer"}
+
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }
+
 
 async def login_user(credentials):
     user = await collection.find_one({"email": credentials["email"]})
@@ -47,7 +55,9 @@ async def login_user(credentials):
         # Generar token JWT
         token_data = {
             "sub": user_id,  # "sub" es un estándar para el ID del usuario en JWT
-            "email": user["email"]
+            "email": user["email"],
+            "name":user["name"],
+            "type":user["type"]
         }
         token = create_access_token(token_data)
         

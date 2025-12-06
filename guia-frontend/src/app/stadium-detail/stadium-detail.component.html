@@ -28,4 +28,26 @@
     </div>
   </div>
 
+  <div class="global-toast" *ngIf="toastMessage">
+  {{ toastMessage }}
+</div>
+
+
+
+  <div class="content">
+    <h1>{{  stadium.name  }}</h1>
+
+    <app-review
+  [itemId]="stadium.id"
+  [itemType]="'stadium'"
+  [parentReviews]="reviews"
+  (refreshReviews)="onRefreshReviews()">
+</app-review>
+
+
+
+  </div>
+
+
+  
 </div>

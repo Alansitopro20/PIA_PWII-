@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { PlacesComponent } from '../places/places.component';
 import { PlaceService } from '../services_/placesservice';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PlaceModel } from '../models_/placesmodel';
+import { ReviewComponent } from '../review/review.component';
 
 @Component({
   selector: 'app-places-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReviewComponent],
   templateUrl: './places-detail.component.html',
   styleUrl: './places-detail.component.scss'
 })
@@ -40,4 +40,6 @@ export class PlacesDetailComponent {
         );
       }
     }
+
+
 }

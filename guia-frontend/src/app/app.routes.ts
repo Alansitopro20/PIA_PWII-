@@ -12,6 +12,7 @@ import { PlacesDetailComponent } from './places-detail/places-detail.component';
 import { StadiumDetailComponent } from './stadium-detail/stadium-detail.component';
 import { StayDetailComponent } from './stay-detail/stay-detail.component';
 import { PostsComponent } from './posts/posts.component';
+import { ReviewComponent } from './review/review.component';
 
 
 export const routes: Routes = [
@@ -35,7 +36,7 @@ export const routes: Routes = [
         component: StadiumsComponent,
     },{
         path:'posting',
-        component: PostsComponent
+        component: ReviewComponent
 
     },{
         path:'stay',

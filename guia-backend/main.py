@@ -1,11 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import userrouter,productrouter,cityrouter,postsrouter,stadiumsrouter,stayrouter,placesrouter
+from routers import userrouter,productrouter,cityrouter,postsrouter,stadiumsrouter,stayrouter,placesrouter,reviewrouter
 from fastapi.staticfiles import StaticFiles
 import os
 
 
 app = FastAPI(title="API Mundial ")
+
+origins = [
+    "http://localhost:4200",
+]
 
 # Configuración CORS para permitir todos los orígenes
 app.add_middleware(
@@ -24,6 +28,7 @@ app.include_router(postsrouter.router)
 app.include_router(stayrouter.router)
 app.include_router(stadiumsrouter.router)
 app.include_router(placesrouter.router)
+app.include_router(reviewrouter.router)
 
 #app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 # Carpeta de uploads

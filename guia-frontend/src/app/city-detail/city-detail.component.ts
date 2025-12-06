@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CityService } from '../services_/cityservice';
 import { CityModel } from '../models_/citymodel';
 import { CommonModule } from '@angular/common';
+import { ReviewComponent } from '../review/review.component';
 
 @Component({
   selector: 'app-city-detail',
