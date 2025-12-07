@@ -74,5 +74,8 @@ export const routes: Routes = [
         path:'stadium/by_city/:city',
         loadComponent:()=>
             import('./stadium-by-city/stadium-by-city.component').then(m=>StadiumByCityComponent)
+    },{
+        path:'**',
+        component:HomeComponent,
     }
 ];

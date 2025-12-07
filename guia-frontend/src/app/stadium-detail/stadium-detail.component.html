@@ -5,6 +5,20 @@
     <img [src]="'http://localhost:8000/' + stadium.imagenPrincipal" />
   </div>
 
+   <!-- Botón de favoritos -->
+  <button 
+    class="fav-btn"
+    (click)="toggleFavorite()">
+
+    <i 
+      class="bi" 
+      [ngClass]="isFavorite ? 'bi-heart-fill' : 'bi-heart'">
+    </i>
+
+    {{ isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos' }}
+  </button>
+
+
   <!--Video-->
   <iframe 
     *ngIf="stadium?.video_url"

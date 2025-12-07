@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Userservice } from '../services_/userservice';
 import { UserModel } from '../models_/usermodel';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf,TitleCasePipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
-  imports: [NgIf, RouterModule],
+  imports: [NgIf, RouterModule, NgClass, TitleCasePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -32,7 +32,7 @@ export class ProfileComponent {
   }
    loadProfile() {
     this.loading = true;
-    this.userService.getProfile(this.information.user.email, this.token).subscribe({
+    this.userService.getProfileFav(this.token).subscribe({
       next: (profile) => {
         this.profileData = profile;
         this.loading = false;
@@ -67,4 +67,17 @@ export class ProfileComponent {
       }
     );
   }*/
+
+  goToFavorite(fav: any) {
+    if (fav.type === 'place') {
+      this.router.navigate(['/place', fav.item_id]);
+    }
+    else if (fav.type === 'stay') {
+      this.router.navigate(['/stay', fav.item_id]);
+    }
+    else if (fav.type === 'stadium') {
+      this.router.navigate(['/stadium', fav.item_id]);
+    }
+}
+
 }

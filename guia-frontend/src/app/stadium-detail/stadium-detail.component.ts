@@ -6,6 +6,7 @@ import { StadiumService } from '../services_/stadiumsservice';
 import { ReviewService } from '../services_/reviewservice';
 import { ReviewComponent } from '../review/review.component';
 import { SafeUrlPipe } from '../pipe/safe-url.pipe';
+import { Userservice } from '../services_/userservice';
 
 @Component({
   selector: 'app-stadium-detail',
@@ -15,20 +16,21 @@ import { SafeUrlPipe } from '../pipe/safe-url.pipe';
   styleUrl: './stadium-detail.component.scss'
 })
 export class StadiumDetailComponent {
-
-  
   stadium!: StadiumModel;
   token: string = '';
   reviews: any[] = [];
   averageRating: number = 0;
   toastMessage: string | null = null;
-
-
+  isFavorite: boolean = false;
+  userId: string = '';
+  toastMessageFav: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private stadiumService: StadiumService,
-    private reviewService: ReviewService   // ⬅ NECESARIO
+    private reviewService: ReviewService,
+    private userService:Userservice
+
   ) {}
 
   ngOnInit() {
@@ -48,6 +50,8 @@ export class StadiumDetailComponent {
 
           // Cargar reseñas cuando ya se tiene el ID
           this.loadReviews();
+          this.checkIfFavorite();
+
         },
         err => console.error('Error loading stadium:', err)
       );
@@ -85,5 +89,34 @@ export class StadiumDetailComponent {
       this.loadReviews();  
   }
 
+  checkIfFavorite() {
+  if (!this.token) return;
+
+  this.userService.getProfileFav(this.token).subscribe((res: any) => {
+
+    this.isFavorite = res.favorites?.stadiums?.includes(
+      this.stadium.id.toString()
+    ) ?? false;
+
+  });
+}
+
+  toggleFavorite() {
+    if (!this.token) return;
+
+    const itemId = this.stadium.id.toString();
+
+    if (!this.isFavorite) {
+      this.userService.addFavorite('stadiums', itemId, this.token).subscribe(() => {
+        this.isFavorite = true;
+        this.showToast('Agregado a favoritos ❤️');
+      });
+    } else {
+      this.userService.removeFavorite('stadiums', itemId, this.token).subscribe(() => {
+        this.isFavorite = false;
+        this.showToast('Eliminado de favoritos 💔');
+      });
+    }
+  }
 
 }

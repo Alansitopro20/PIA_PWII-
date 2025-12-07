@@ -47,6 +47,37 @@ async def login_dev(username: str, password: str):
     }
 
 
+# FAVORITOS
+async def add_favorite(user_id: str, item_type: str, item_id: str):
+    allowed = ["places", "stays", "stadiums","cities"]
+    if item_type not in allowed:
+        return False
+
+    result = await collection.update_one(
+        {"_id": ObjectId(user_id)},
+        {"$addToSet": {f"favorites.{item_type}": item_id}}
+    )
+    return result.modified_count > 0
+
+async def remove_favorite(user_id: str, item_type: str, item_id: str):
+    allowed = ["places", "stays", "stadiums", "cities"]
+    if item_type not in allowed:
+        return False
+
+    result = await collection.update_one(
+        {"_id": ObjectId(user_id)},
+        {"$pull": {f"favorites.{item_type}": item_id}}
+    )
+    return result.modified_count > 0
+
+async def get_favorites(user_id: str):
+    user = await collection.find_one({"_id": ObjectId(user_id)})
+    if not user:
+        return None
+    return user.get("favorites", {})
+
+
+
 async def login_user(credentials):
     user = await collection.find_one({"email": credentials["email"]})
     if user and bcrypt.checkpw(credentials["password"].encode('utf-8'), user["password"].encode('utf-8')):

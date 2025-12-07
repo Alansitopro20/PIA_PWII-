@@ -1,5 +1,5 @@
 export interface CityModel {
-    id?: string;
+    id: string;
     name: string;
 
     subtitulo: string;

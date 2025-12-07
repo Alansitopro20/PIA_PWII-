@@ -6,6 +6,7 @@ import { StayModel } from '../models_/staymodel';
 import { StayService } from '../services_/stayservice';
 import { ReviewComponent } from '../review/review.component';
 import { ReviewService } from '../services_/reviewservice';
+import { Userservice } from '../services_/userservice';
 
 
 @Component({
@@ -21,13 +22,16 @@ export class StayDetailComponent {
     reviews: any[] = [];
     averageRating: number = 0;
     toastMessage: string | null = null;
-
+    isFavorite: boolean = false;
+    userId: string = '';
+    toastMessageFav: string = '';
   
     constructor(
       private route: ActivatedRoute,
       private stayService: StayService,
-      private reviewService: ReviewService   // ⬅ NECESARIO
-      
+      private reviewService: ReviewService,
+      private userService:Userservice
+
     ) {}
   
     ngOnInit() {
@@ -45,8 +49,9 @@ export class StayDetailComponent {
             this.stay = stay;
             console.log('Stay detail:', this.stay);
 
-            // Cargar reseñas cuando ya se tiene el ID
+            // Cargar 
             this.loadReviews();
+            this.checkIfFavorite();
           },
           err => console.error('Error loading city:', err)
         );
@@ -83,6 +88,35 @@ export class StayDetailComponent {
       this.loadReviews();   // <----- FALTABA ESTO
   }
 
+  // FAVORITOS
+  checkIfFavorite() {
+  if (!this.token) return;
 
+  this.userService.getProfileFav(this.token).subscribe((res: any) => {
+
+    this.isFavorite = res.favorites?.stays?.includes(
+      this.stay.id.toString()
+    ) ?? false;
+
+  });
+}
+
+  toggleFavorite() {
+    if (!this.token) return;
+
+    const itemId = this.stay.id.toString();
+
+    if (!this.isFavorite) {
+      this.userService.addFavorite('stays', itemId, this.token).subscribe(() => {
+        this.isFavorite = true;
+        this.showToast('Agregado a favoritos ❤️');
+      });
+    } else {
+      this.userService.removeFavorite('stays', itemId, this.token).subscribe(() => {
+        this.isFavorite = false;
+        this.showToast('Eliminado de favoritos 💔');
+      });
+    }
+  }
     
 }
