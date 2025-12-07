@@ -1,3 +1,51 @@
+
+<!-- Listado de reseñas ya hechas -->
+<div class="reviews-list">
+  <h3>Reseñas</h3>
+
+  <div *ngFor="let r of paginatedReviews" class="review-item">
+
+    <div class="review-header">
+      <img 
+        class="user-img"
+        [src]="'http://localhost:8000/' + r.user_photo"
+        *ngIf="r.user_photo"
+        alt="user"
+      />
+
+      <div>
+        <p class="user-name">{{ r.user_name }}</p>
+        <p class="user-type">{{ r.user_type }}</p>
+      </div>
+    </div>
+
+    <div class="rating">
+      ⭐ {{ r.rating }}
+    </div>
+
+    <p class="comment">
+      {{ r.comentario }}
+    </p>
+  </div>
+
+  <!-- PAGINACIÓN -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">
+      ◀ Anterior
+    </button>
+
+    <span>Página {{ currentPage }}</span>
+
+    <button 
+      (click)="nextPage()" 
+      [disabled]="currentPage * reviewsPerPage >= parentReviews.length">
+      Siguiente ▶
+    </button>
+  </div>
+</div>
+
+
+<!-- Formulario de reseñas -->
 <div class="review-form">
   <h3>Dejar una reseña</h3>
 
@@ -20,16 +68,6 @@
 </div>
 
 <hr>
-
-<div class="reviews-list">
-  <h3>Reseñas</h3>
-
-  <div *ngFor="let r of parentReviews" class="review-item">
-    <p><strong>Usuario:</strong> {{ r.user_name }} ({{ r.user_type }})</p>
-    <p><strong>Calificación:</strong> ⭐{{ r.rating }}</p>
-    <p>{{ r.comentario }}</p>
-  </div>
-</div>
 
 <!-- TOAST -->
 <div class="toast" *ngIf="toastMessage" style="

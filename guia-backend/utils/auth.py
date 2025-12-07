@@ -41,6 +41,7 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         email = payload.get("email")
         name=payload.get("name")
         type=payload.get("type")
+        photo=payload.get("photo")
 
         if user_id is None or email is None:
             raise credentials_exception
@@ -49,7 +50,8 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
             "id": user_id,      # 👈 CAMBIO IMPORTANTE
             "email": email,
             "name": name,
-            "type":type
+            "type":type,
+            "photo":photo
 
         }
     except JWTError:

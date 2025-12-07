@@ -7,6 +7,7 @@ class Review(BaseModel):
     user_id: str
     user_name: Optional[str] = None
     user_type: Optional[str] = None
+    user_photo:Optional[str] = None
     item_id: str
     item_type: str
     rating: float

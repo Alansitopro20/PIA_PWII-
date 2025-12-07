@@ -30,7 +30,12 @@ export class StadiumService{
 
       getStadiumByName(name: string): Observable<StadiumModel> {
           return this.http.get<StadiumModel>(`http://localhost:8000/stadiums/${name}`);
-        }
+      }
+
+      getStadiumsByCity(city:string){
+        return this.http.get<StadiumModel[]>(`http://localhost:8000/stadiums/by_city/${city}`);
+        
+      }
 
 
 }

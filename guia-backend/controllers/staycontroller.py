@@ -31,3 +31,15 @@ async def get_stay_by_name(name: str):
     del stay["_id"]
 
     return Stay(**stay)
+
+async def get_stay_by_city(ciudad: str):
+    stays = []
+    cursor = collection.find({"ciudad": ciudad})
+    async for document in cursor:
+        document["id"] = str(document["_id"])
+        del document["_id"]
+        stays.append(Stay(**document))
+
+    return stays
+
+

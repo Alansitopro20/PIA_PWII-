@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Lugares turísticos en {{ city }}</h2>
+
+  <div *ngIf="places.length === 0" class="empty">
+    No hay hospedajes registrados en esta ciudad.
+  </div>
+
+  <div class="stay-list">
+    <div class="stay-card" *ngFor="let p of places">
+      <h3>{{ p.name }}</h3>
+      <p>{{ p.descripcion }}</p>
+
+      <div class="image-box">
+        <img [src]="'http://localhost:8000/'+p.imagenPrincipal" alt="stay image" />
+      </div>
+
+      
+      
+    </div>
+  </div>
+</div>

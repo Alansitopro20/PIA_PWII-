@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Estadios en {{ city }}</h2>
+
+  <div *ngIf="stadiums.length === 0" class="empty">
+    No hay estadios registrados en esta ciudad.
+  </div>
+
+  <div class="stadium-list">
+    <div class="stadium-card" *ngFor="let s of stadiums">
+      <h3>{{ s.name }}</h3>
+      <p>{{ s.descripcion }}</p>
+
+      <div class="image-box">
+        <img [src]="'http://localhost:8000/'+s.imagenPrincipal" alt="stay image" />
+      </div>
+
+      
+      
+    </div>
+  </div>
+</div>

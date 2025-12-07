@@ -30,5 +30,10 @@ export class ReviewService {
     );
   }
 
+  getAverageRating(itemId: string) {
+  return this.http.get<number>(`${this.baseUrl}/average/${itemId}`);
+}
+
+
 }
 

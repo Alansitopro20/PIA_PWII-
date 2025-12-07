@@ -3,6 +3,8 @@ from typing import List
 from controllers.reviewcontroller import create_review, get_reviews_by_item
 from models.review import Review
 from utils.auth import get_current_user
+from controllers.reviewcontroller import get_average_rating
+
 
 router = APIRouter(prefix="/reviews", tags=["Reviews"])
 
@@ -19,6 +21,7 @@ async def register_review(
         "user_id": current_user["id"],
         "user_name":current_user["name"],
         "user_type":current_user["type"],
+        "user_photo":current_user["photo"],
         "item_id": item_id,
         "item_type": item_type,
         "rating": rating,
@@ -32,3 +35,9 @@ async def register_review(
 @router.get("/{item_id}", response_model=List[Review])
 async def get_reviews(item_id: str):
     return await get_reviews_by_item(item_id)
+
+
+@router.get("/average/{item_id}")
+async def get_average(item_id: str):
+    return await get_average_rating(item_id)
+

@@ -2,7 +2,7 @@
 from fastapi import APIRouter, Depends, Form, File, UploadFile, HTTPException
 from typing import List, Optional
 from models.stay import Stay
-from controllers.staycontroller import createStay, get_all_stay, get_stay_by_name
+from controllers.staycontroller import createStay, get_all_stay, get_stay_by_name, get_stay_by_city
 from utils.auth import get_current_user
 import shutil
 import os
@@ -65,6 +65,17 @@ async def register_stay(
 @router.get("/", response_model=List[Stay])
 async def read_stay():
     return await get_all_stay()
+
+@router.get("/by_city/{ciudad}", response_model=List[Stay])
+async def get_stays_by_city(ciudad: str):
+    decoded = unquote(ciudad)
+
+    stays = await get_stay_by_city(decoded)
+
+    if not stays:
+        raise HTTPException(status_code=404, detail="No stays found in this city")
+
+    return stays
 
 @router.get("/{name}", response_model=Stay)
 async def read_stay_by_name(name: str):

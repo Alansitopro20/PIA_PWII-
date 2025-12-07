@@ -102,6 +102,29 @@ export class ReviewComponent {
   });
 }
 
+
+// PAGINACIÓN
+currentPage = 1;
+reviewsPerPage = 5;
+
+get paginatedReviews() {
+  const start = (this.currentPage - 1) * this.reviewsPerPage;
+  const end = start + this.reviewsPerPage;
+  return this.parentReviews.slice(start, end);
+}
+
+nextPage() {
+  if ((this.currentPage * this.reviewsPerPage) < this.parentReviews.length) {
+    this.currentPage++;
+  }
+}
+
+prevPage() {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+  }
+}
+
   
 
 }

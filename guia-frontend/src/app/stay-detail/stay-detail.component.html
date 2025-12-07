@@ -28,4 +28,22 @@
     </div>
   </div>
 
+   <!-- TOAST -->
+  <div class="global-toast" *ngIf="toastMessage">
+    {{ toastMessage }}
+  </div>
+
+
+<!-- RESEÑAS -->
+  <div class="content">
+
+    <app-review
+      [itemId]="stay.id"
+      [itemType]="'stay'"
+      [parentReviews]="reviews"
+      (refreshReviews)="onRefreshReviews()">
+    </app-review>
+
+  </div>
+
 </div>

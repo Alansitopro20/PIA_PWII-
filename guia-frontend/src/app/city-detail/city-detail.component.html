@@ -5,28 +5,152 @@
     <img [src]="'http://localhost:8000/' + city.imagenPrincipal" />
   </div>
 
+  
+  <!--Video-->
+  <iframe 
+    *ngIf="city?.video_url"
+    [src]="city.video_url | safeUrl"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+
   <h1>{{ city.name }}</h1>
+
+  <h3>{{city.subtitulo}}</h3>
 
   <p class="description">{{ city.description }}</p>
 
+  <!--Informacion general-->
   <div class="info-box">
-    <p><strong>Población:</strong> {{ city.poblacion | number }}</p>
-    <p><strong>Clima:</strong> {{ city.clima }} °C</p>
-    <p><strong>Gentilicio:</strong> {{ city.gentilicio }}</p>
-    <p><strong>Estado de la República:</strong> {{ city.estadoRep }}</p>
-  </div>
+  <p>
+    <i class="fa-solid fa-users"></i>
+    <strong>Población:</strong> {{ city.poblacion | number }}
+  </p>
 
-  <!-- Galería -->
-  <div class="gallery" *ngIf="city.galeria?.length">
-    <h3>Galería</h3>
+  <p>
+    <i class="fa-solid fa-temperature-half"></i>
+    <strong>Clima:</strong> {{ city.clima }} °C
+  </p>
 
-    <div class="gallery-grid">
-      <img 
-        *ngFor="let img of city.galeria"
-        [src]="'http://localhost:8000/' + img"
-        class="gallery-item"
-      />
+  <p>
+    <i class="fa-solid fa-user"></i>
+    <strong>Gentilicio:</strong> {{ city.gentilicio }}
+  </p>
+
+  <p>
+    <i class="fa-solid fa-map"></i>
+    <strong>Estado de la República:</strong> {{ city.estadoRep }}
+  </p>
+</div>
+
+<!--Datos curiosos-->
+<div class="curiosidades-slider" *ngIf="city.dato_curioso?.length">
+
+  <h3>Datos curiosos</h3>
+
+  <div class="curiosidad-viewer">
+
+    <!-- Flecha izquierda -->
+    <button class="arrow left" (click)="prevDato()">
+      &#10094;
+    </button>
+
+    <!-- Dato curioso actual -->
+    <div class="curiosidad-text">
+      <i class="fa-solid fa-lightbulb"></i>
+      <p>{{ city.dato_curioso[currentDato] }}</p>
     </div>
+
+    <!-- Flecha derecha -->
+    <button class="arrow right" (click)="nextDato()">
+      &#10095;
+    </button>
+
   </div>
+
+  <!-- Indicadores -->
+  <div class="dots">
+    <span
+      *ngFor="let d of city.dato_curioso; let i = index"
+      class="dot"
+      [class.active]="i === currentDato"
+      (click)="goToDato(i)">
+    </span>
+  </div>
+
+</div>
+
+
+
+<!--Galeria-->
+  <div class="gallery" *ngIf="city.galeria?.length">
+  <h3>Galería</h3>
+
+  <div class="gallery-viewer">
+    
+    <!-- Flecha izquierda -->
+    <button class="arrow left" (click)="prevImage()">
+      &#10094;
+    </button>
+
+    <!-- Imagen actual -->
+    <img 
+      class="gallery-image"
+      [src]="'http://localhost:8000/' + city.galeria[currentImage]"
+    />
+
+    <!-- Flecha derecha -->
+    <button class="arrow right" (click)="nextImage()">
+      &#10095;
+    </button>
+
+  </div>
+
+  <!-- Indicadores (bolitas) -->
+  <div class="dots">
+    <span 
+      *ngFor="let img of city.galeria; let i = index"
+      class="dot"
+      [class.active]="i === currentImage"
+      (click)="goToImage(i)">
+    </span>
+  </div>
+
+</div>
+
+
+<!-- ========================================= -->
+<!--  También te puede interesar… -->
+<!-- ========================================= -->
+<div class="interes-section">
+  <h3>También te puede interesar…</h3>
+
+  <div class="interes-container">
+
+    <!-- Hospedaje -->
+    <div class="interes-card" (click)="goTo('stay')">
+      <i class="fa-solid fa-bed"></i>
+      <h4>Hospedajes</h4>
+      <p>Encuentra los mejores lugares para quedarte.</p>
+    </div>
+
+    <!-- Puntos turísticos -->
+    <div class="interes-card" (click)="goTo('places')">
+      <i class="fa-solid fa-map-location-dot"></i>
+      <h4>Puntos turísticos</h4>
+      <p>Lugares emblemáticos que debes visitar.</p>
+    </div>
+
+    <!-- Estadios -->
+    <div class="interes-card" (click)="goTo('stadium')">
+      <i class="fa-solid fa-futbol"></i>
+      <h4>Estadios</h4>
+      <p>Descubre los estadios principales.</p>
+    </div>
+
+  </div>
+</div>
+
+
 
 </div>

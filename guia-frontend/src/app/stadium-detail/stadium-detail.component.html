@@ -5,7 +5,16 @@
     <img [src]="'http://localhost:8000/' + stadium.imagenPrincipal" />
   </div>
 
+  <!--Video-->
+  <iframe 
+    *ngIf="stadium?.video_url"
+    [src]="stadium.video_url | safeUrl"
+    frameborder="0"
+    allowfullscreen>
+  </iframe>
+
   <h1>{{ stadium.name }}</h1>
+  <h3>{{ stadium.subtitulo }}</h3>
 
   <p class="description">{{ stadium.descripcion }}</p>
 
@@ -13,6 +22,10 @@
   <div class="info-box">
     <p><strong>Ciudad:</strong> {{ stadium.ciudad }}</p>
     <p><strong>Capacidad:</strong> {{ stadium.capacidad | number }}</p>
+    <div class="average-rating">
+  <strong>⭐ Calificación promedio:</strong> {{ averageRating }} / 5
+</div>
+
   </div>
 
   <!-- Galería -->
@@ -28,23 +41,22 @@
     </div>
   </div>
 
+  <!-- TOAST -->
   <div class="global-toast" *ngIf="toastMessage">
-  {{ toastMessage }}
-</div>
+    {{ toastMessage }}
+  </div>
 
 
-
+<!-- RESEÑAS -->
   <div class="content">
-    <h1>{{  stadium.name  }}</h1>
+    <!--<h1>{{  stadium.name  }}</h1>-->
 
     <app-review
-  [itemId]="stadium.id"
-  [itemType]="'stadium'"
-  [parentReviews]="reviews"
-  (refreshReviews)="onRefreshReviews()">
-</app-review>
-
-
+      [itemId]="stadium.id"
+      [itemType]="'stadium'"
+      [parentReviews]="reviews"
+      (refreshReviews)="onRefreshReviews()">
+    </app-review>
 
   </div>
 

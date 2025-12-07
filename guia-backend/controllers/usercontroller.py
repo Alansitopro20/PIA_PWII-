@@ -35,7 +35,8 @@ async def login_dev(username: str, password: str):
         "sub": str(user["_id"]),  # ✔ importante
         "email": user["email"],
         "name":user["name"],
-        "type":user["type"]
+        "type":user["type"],
+        "photo":user["photo"]
     }
 
     token = create_access_token(token_data)
@@ -57,7 +58,8 @@ async def login_user(credentials):
             "sub": user_id,  # "sub" es un estándar para el ID del usuario en JWT
             "email": user["email"],
             "name":user["name"],
-            "type":user["type"]
+            "type":user["type"],
+            "photo":user["photo"]
         }
         token = create_access_token(token_data)
         

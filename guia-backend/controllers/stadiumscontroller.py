@@ -31,3 +31,13 @@ async def get_stadium_by_name(name: str):
     del stadium["_id"]
 
     return Stadiums(**stadium)
+
+async def get_stadium_by_city(ciudad:str):
+    stadiums=[]
+    cursor=collection.find({"ciudad":ciudad})
+    async for document in cursor:
+        document["id"]=str (document["_id"])
+        del document["_id"]
+        stadiums.append(Stadiums(**document))
+
+    return stadiums

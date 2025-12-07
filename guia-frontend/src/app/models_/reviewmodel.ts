@@ -8,4 +8,5 @@ export interface ReviewModel {
 
   user_name: string;   // 👈 nuevo
   user_type: string;   // 👈 nuevo
+  user_photo:string;
 }
