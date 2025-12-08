@@ -8,7 +8,8 @@ from controllers.usercontroller import (
     get_user_by_email,
     add_favorite,
     remove_favorite,
-    get_favorites
+    get_favorites,
+    is_email_registered
 )
 from utils.auth import get_current_user
 import shutil
@@ -107,17 +108,18 @@ async def add_to_favorites(
     data: FavoriteRequest,
     current_user: dict = Depends(get_current_user)
 ):
-    success = await add_favorite(current_user["id"], data.item_type, data.item_id)
+    success = await add_favorite(current_user["id"], data.item_type, data.item_id, data.item_name)
     if not success:
         raise HTTPException(400, "No se pudo agregar el favorito.")
     return {"message": "Agregado a favoritos"}
+
 
 @router.post("/favorites/remove")
 async def remove_from_favorites(
     data: FavoriteRequest,
     current_user: dict = Depends(get_current_user)
 ):
-    success = await remove_favorite(current_user["id"], data.item_type, data.item_id)
+    success = await remove_favorite(current_user["id"], data.item_type, data.item_id, data.item_name)
     if not success:
         raise HTTPException(400, "No se pudo quitar el favorito.")
     return {"message": "Eliminado de favoritos"}

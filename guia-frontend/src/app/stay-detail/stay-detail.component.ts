@@ -107,7 +107,7 @@ export class StayDetailComponent {
     const itemId = this.stay.id.toString();
 
     if (!this.isFavorite) {
-      this.userService.addFavorite('stays', itemId, this.token).subscribe(() => {
+      this.userService.addFavorite('stays', itemId, this.stay.name, this.token).subscribe(() => {
         this.isFavorite = true;
         this.showToast('Agregado a favoritos ❤️');
       });

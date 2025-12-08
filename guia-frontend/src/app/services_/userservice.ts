@@ -39,17 +39,18 @@ export class Userservice {
    *         FAVORITOS
    *  --------------------------*/
 
-  addFavorite(item_type: string, item_id: string, token: string) {
-    return this.http.post(
-      `${this.API_URL}/favorites/add`,
-      { item_type, item_id },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+  addFavorite(item_type: string, item_id: string, item_name: string, token: string) {
+  return this.http.post(
+    `${this.API_URL}/favorites/add`,
+    { item_type, item_id, item_name },  // ✔ enviar item_name
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
       }
-    );
-  }
+    }
+  );
+}
+
 
   removeFavorite(item_type: string, item_id: string, token: string) {
     return this.http.post(

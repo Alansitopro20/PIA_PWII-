@@ -50,6 +50,7 @@ class UserProfileResponse(BaseModel):
 class FavoriteRequest(BaseModel):
     item_type: str
     item_id: str
+    item_name:str
 
 
     

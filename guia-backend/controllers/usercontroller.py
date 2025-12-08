@@ -17,10 +17,17 @@ async def create_user(user_data):
 
 async def get_user_by_email(email):
     user = await collection.find_one({"email": email})
-    if user:
-        user["id"] = str(user["_id"])
-        del user["_id"]
+    if not user:
+        return None
+    user["id"] = str(user["_id"])
+    del user["_id"]
     return user
+
+async def is_email_registered(email: str) -> bool:
+    """Devuelve True si el correo ya existe, False si no."""
+    user = await collection.find_one({"email": email})
+    return user is not None
+
 
 async def login_dev(username: str, password: str):
     user = await collection.find_one({"email": username})
@@ -48,27 +55,38 @@ async def login_dev(username: str, password: str):
 
 
 # FAVORITOS
-async def add_favorite(user_id: str, item_type: str, item_id: str):
+async def add_favorite(user_id: str, item_type: str, item_id: str, item_name: str):
     allowed = ["places", "stays", "stadiums","cities"]
     if item_type not in allowed:
         return False
 
+    favorite_obj = {
+        "item_id": item_id,
+        "item_name": item_name
+    }
+
     result = await collection.update_one(
         {"_id": ObjectId(user_id)},
-        {"$addToSet": {f"favorites.{item_type}": item_id}}
+        {"$addToSet": {f"favorites.{item_type}": favorite_obj}}
     )
     return result.modified_count > 0
 
-async def remove_favorite(user_id: str, item_type: str, item_id: str):
+async def remove_favorite(user_id: str, item_type: str, item_id: str, item_name:str):
     allowed = ["places", "stays", "stadiums", "cities"]
     if item_type not in allowed:
         return False
+    
+    favorite_obj = {
+        "item_id": item_id,
+        "item_name": item_name
+    }
 
     result = await collection.update_one(
         {"_id": ObjectId(user_id)},
-        {"$pull": {f"favorites.{item_type}": item_id}}
+        {"$pull": {f"favorites.{item_type}": favorite_obj}}
     )
     return result.modified_count > 0
+
 
 async def get_favorites(user_id: str):
     user = await collection.find_one({"_id": ObjectId(user_id)})

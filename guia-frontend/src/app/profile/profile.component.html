@@ -95,30 +95,26 @@
   </div>
 
   <!-- ===== MIS FAVORITOS ===== -->
-<div *ngIf="!loading && profileData?.favorites?.length" class="favorites-section fade-in">
+<!-- ===== MIS FAVORITOS ===== -->
+<div *ngIf="!loading && profileData?.favoritesArray?.length" class="favorites-section fade-in">
 
   <h3 class="fav-title">⭐ Mis Favoritos</h3>
 
   <div class="favorites-grid">
 
-    <div class="fav-card" 
-         *ngFor="let fav of profileData.favorites"
-         (click)="goToFavorite(fav)">
-
+    <div class="fav-card" *ngFor="let fav of profileData.favoritesArray" (click)="goToFavorite(fav)">
+      
       <div class="fav-icon">
-        <i 
-          class="bi" 
-          [ngClass]="{
-            'bi-geo-alt-fill': fav.type === 'place',
-            'bi-building': fav.type === 'stay',
-            'bi-trophy-fill': fav.type === 'stadium'
-          }">
-        </i>
+        <i class="bi" [ngClass]="{
+          'bi-geo-alt-fill': fav.type === 'place',
+          'bi-building': fav.type === 'stay',
+          'bi-trophy-fill': fav.type === 'stadium'
+        }"></i>
       </div>
 
-      <div class="fav-info">
+      <div class="fav-info" style="cursor: pointer;">
         <span class="fav-type">{{ fav.type | titlecase }}</span>
-        <span class="fav-id">ID: {{ fav.item_id }}</span>
+        <span class="fav-name">{{ fav.item_name }} </span> 
       </div>
 
     </div>
@@ -128,10 +124,7 @@
 </div>
 
 <!-- SI NO HAY FAVORITOS -->
-<div *ngIf="!loading && profileData && (!profileData.favorites || profileData.favorites.length === 0)"
+<div *ngIf="!loading && profileData && (!profileData.favoritesArray || profileData.favoritesArray.length === 0)"
      class="no-favorites fade-in">
   <p>Este usuario no tiene favoritos aún.</p>
-</div>
-
-
 </div>

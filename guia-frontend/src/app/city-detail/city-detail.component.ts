@@ -89,7 +89,7 @@ export class CityDetailComponent {
     const itemId = this.city.id.toString();
 
     if (!this.isFavorite) {
-      this.userService.addFavorite('cities', itemId, this.token).subscribe(() => {
+      this.userService.addFavorite('cities', itemId, this.city.name, this.token).subscribe(() => {
         this.isFavorite = true;
         this.showToast('Agregado a favoritos ❤️');
       });

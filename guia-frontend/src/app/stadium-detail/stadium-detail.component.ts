@@ -107,7 +107,7 @@ export class StadiumDetailComponent {
     const itemId = this.stadium.id.toString();
 
     if (!this.isFavorite) {
-      this.userService.addFavorite('stadiums', itemId, this.token).subscribe(() => {
+      this.userService.addFavorite('stadiums', itemId, this.stadium.name, this.token).subscribe(() => {
         this.isFavorite = true;
         this.showToast('Agregado a favoritos ❤️');
       });
