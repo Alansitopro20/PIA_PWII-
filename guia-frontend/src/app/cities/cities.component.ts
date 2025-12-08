@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { CityModel } from '../models_/citymodel';
 import { CityService } from '../services_/cityservice';
 import { NgFor, CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-cities',
-  imports: [CommonModule, NgFor],
+  imports: [CommonModule, NgFor, RouterModule],
   templateUrl: './cities.component.html',
   styleUrl: './cities.component.scss'
 })
@@ -41,5 +41,10 @@ export class CitiesComponent {
 
   goToCity(name: string) {
     this.router.navigate(['/cities', name]);  // ✅ Ruta corregida
+  }
+
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
