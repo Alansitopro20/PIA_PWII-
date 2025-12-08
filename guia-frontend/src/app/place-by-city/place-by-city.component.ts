@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PlaceModel } from '../models_/placesmodel';
 import { PlaceService } from '../services_/placesservice';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-place-by-city',
@@ -16,7 +17,9 @@ export class PlaceByCityComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private placeService: PlaceService
+    private placeService: PlaceService,
+    private router: Router
+
   ){}
 
   ngOnInit(){
@@ -29,6 +32,10 @@ export class PlaceByCityComponent {
       },
       error:(err)=>console.error("Error loading places:",err)
     });
+  }
+
+  goToPlaceDetail(name: string) {
+    this.router.navigate(['/places', name]);
   }
 
 }

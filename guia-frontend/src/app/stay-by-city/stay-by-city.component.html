@@ -5,17 +5,18 @@
     No hay hospedajes registrados en esta ciudad.
   </div>
 
-  <div class="stay-list">
-    <div class="stay-card" *ngFor="let s of stays">
-      <h3>{{ s.name }}</h3>
-      <p>{{ s.descripcion }}</p>
+ <div class="stay-list">
+  <div class="stay-card" *ngFor="let s of stays" (click)="goToStayDetail(s.name)" style="cursor: pointer;">
+    <h3>{{ s.name }}</h3>
+    <p>{{ s.descripcion }}</p>
 
-      <div class="image-box">
-        <img [src]="'http://localhost:8000/'+s.imagenPrincipal" alt="stay image" />
-      </div>
-
-      <p><strong>Precio:</strong> {{ s.precio }}</p>
-      
+    <div class="image-box">
+      <img [src]="'http://localhost:8000/' + s.imagenPrincipal" alt="stay image" />
     </div>
+
+    <p><strong>Precio:</strong> {{ s.precio }}</p>
   </div>
+</div>
+
+
 </div>

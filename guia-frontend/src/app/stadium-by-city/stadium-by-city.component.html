@@ -6,7 +6,7 @@
   </div>
 
   <div class="stadium-list">
-    <div class="stadium-card" *ngFor="let s of stadiums">
+    <div class="stadium-card" *ngFor="let s of stadiums" (click)="goToStadiumDetail(s.name)" style="cursor: pointer;">
       <h3>{{ s.name }}</h3>
       <p>{{ s.descripcion }}</p>
 

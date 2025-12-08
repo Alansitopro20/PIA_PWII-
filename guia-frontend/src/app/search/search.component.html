@@ -1,0 +1,88 @@
+<div class="search-bar">
+
+  <input
+    type="text"
+    placeholder="Buscar..."
+    [(ngModel)]="query"
+    (input)="onSearch()"
+  />
+
+  <select [(ngModel)]="filter" (change)="onSearch()">
+    <option value="all">Todo</option>
+    <option value="places">Lugares</option>
+    <option value="stay">Hospedajes</option>
+    <option value="cities">Ciudades</option>
+    <option value="stadiums">Estadios</option>
+    <option value="reviews">Reseñas</option>
+  </select>
+
+</div>
+
+
+<div class="results" *ngIf="results">
+
+    <div *ngIf="results?.cities?.length">
+    <h3>Ciudades</h3>
+    <div 
+        *ngFor="let city of results.cities" 
+        class="search-item"
+        (click)="navigateTo(city, 'cities')"
+        style="cursor: pointer;"
+    >
+        {{ city.name }}
+    </div>
+    </div>
+
+    <div *ngIf="results?.places?.length">
+    <h3>Lugares</h3>
+    <div 
+        *ngFor="let place of results.places" 
+        class="search-item"
+        (click)="navigateTo(place, 'places')"
+        style="cursor: pointer;"
+    >
+        {{ place.name }} — {{ place.city }}
+    </div>
+    </div>
+
+    <div *ngIf="results?.stays?.length">
+        <h3>Hospedajes</h3>
+            <div 
+                *ngFor="let stay of results.stays" 
+                class="search-item"
+                (click)="navigateTo(stay, 'stays')"
+                style="cursor: pointer;"
+            >
+                {{ stay.name }} — {{ stay.city }}
+            </div>
+    </div>
+
+    <div *ngIf="results?.stadiums?.length">
+        <h3>Estadios</h3>
+        <div 
+            *ngFor="let stadium of results.stadiums" 
+            class="search-item"
+            (click)="navigateTo(stadium, 'stadiums')"
+            style="cursor: pointer;"
+        >
+            {{ stadium.name }} — {{ stadium.city }}
+        </div>
+    </div>
+
+
+    
+
+    <div *ngIf="results?.reviews?.length">
+        <h3>Reseñas</h3>
+            <div 
+                *ngFor="let review of results.reviews" 
+                class="search-item"
+                (click)="navigateTo(review, 'reviews')"
+                style="cursor: pointer;"
+            >
+                {{ review.comment | slice:0:40 }}...
+            </div>
+    </div>
+
+
+</div>

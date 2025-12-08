@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { StayService } from '../services_/stayservice';
 import { StayModel } from '../models_/staymodel';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-stay-by-city',
@@ -17,7 +19,9 @@ export class StayByCityComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private stayService: StayService
+    private stayService: StayService,
+    private router: Router
+
   ) {}
 
   ngOnInit() {
@@ -30,5 +34,9 @@ export class StayByCityComponent {
       },
       error: (err) => console.error("Error loading stays:", err)
     });
+  }
+
+  goToStayDetail(name: string) {
+    this.router.navigate(['/stay', name]);
   }
 }

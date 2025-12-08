@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { StadiumModel } from '../models_/stadiumsmodel';
 import { StadiumService } from '../services_/stadiumsservice';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-stadium-by-city',
@@ -17,7 +19,9 @@ export class StadiumByCityComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private stadiumService:StadiumService
+    private stadiumService:StadiumService,
+    private router: Router
+
   ){}
 
   ngOnInit(){
@@ -30,6 +34,10 @@ export class StadiumByCityComponent {
       },
       error:(err)=>console.error("Error loading stadiums:", err)
     })
+  }
+
+  goToStadiumDetail(name: string) {
+    this.router.navigate(['/stadium', name]);
   }
 
 }

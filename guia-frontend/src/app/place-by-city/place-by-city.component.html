@@ -5,8 +5,8 @@
     No hay hospedajes registrados en esta ciudad.
   </div>
 
-  <div class="stay-list">
-    <div class="stay-card" *ngFor="let p of places">
+  <div class="place-list">
+    <div class="place-card" *ngFor="let p of places" (click)="goToPlaceDetail(p.name)"style="cursor: pointer;">
       <h3>{{ p.name }}</h3>
       <p>{{ p.descripcion }}</p>
 
