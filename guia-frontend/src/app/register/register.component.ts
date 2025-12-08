@@ -18,6 +18,7 @@ export class RegisterComponent {
     password: FormControl<string | null>;
     type: FormControl<string | null>;
     city: FormControl<string| null>;
+
   }>;
 
   selectedFile: File | null = null;
@@ -92,9 +93,14 @@ export class RegisterComponent {
     formData.append('password', formValue.password!);
     formData.append('type', formValue.type!);
     if (this.selectedFile) {
-      formData.append('photo', this.selectedFile);
-    }
-    if (formValue.city) formData.append('city', formValue.city!);
+  formData.append('photo', this.selectedFile);
+} else {
+  formData.append('photo', new Blob(), "empty.jpg"); // 👈 NECESARIO
+}
+
+if (formValue.city) {
+  formData.append('city', formValue.city!);
+}
 
 
     this.loading = true;
