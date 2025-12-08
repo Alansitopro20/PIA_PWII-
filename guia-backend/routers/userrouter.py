@@ -29,20 +29,32 @@ async def register_user(
     password: str = Form(...),
     type: str = Form(...),
     photo: UploadFile = File(None),
-    city: str =Form(None),
-    role: str="usuario"
+    city: str = Form(None),
+    role: str = "usuario"
 ):
+    print("📩 Email recibido:", email)
+
+
+    # 🔥 VERIFICAR EMAIL ANTES DE GUARDAR NADA
+    existing_user = await get_user_by_email(email)
+    print("DEBUG - Resultado de get_user_by_email:", existing_user)
+
+    if existing_user:
+        raise HTTPException(
+            status_code=400,
+            detail="El usuario ya está registrado con este correo"
+        )
+
     # GUARDAR IMAGEN
     photo_path = None
-
     if photo:
         filename = f"{uuid4()}_{photo.filename}"
         file_path = os.path.join(UPLOAD_DIR, filename)
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(photo.file, buffer)
-        photo_path = file_path  # Guardamos la ruta
+        photo_path = file_path
 
-    # CIUDAD: Si el usuario es turista, ignorar la ciudad
+    # CIUDAD
     if type == "turista":
         city = "World"
         
@@ -52,12 +64,13 @@ async def register_user(
         "password": password,
         "type": type,
         "photo": photo_path,
-        "city":city,
+        "city": city,
         "role": role
     }
 
     user_id = await create_user(user_data)
     return user_id
+
 
 @router.post("/login", response_model=LoginResponse)
 async def login(credentials: UserCredentials):
