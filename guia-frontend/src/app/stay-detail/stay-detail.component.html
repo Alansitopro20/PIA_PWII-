@@ -7,6 +7,20 @@
 
   <h1>{{ stay.name }}</h1>
 
+  <!-- Botón de favoritos -->
+<button 
+  class="fav-btn"
+  (click)="toggleFavorite()">
+
+  <i 
+    class="bi" 
+    [ngClass]="isFavorite ? 'bi-heart-fill' : 'bi-heart'">
+  </i>
+
+  {{ isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos' }}
+</button>
+
+
   <p class="description">{{ stay.descripcion }}</p>
 
   <!-- Información principal -->
@@ -26,6 +40,24 @@
         class="gallery-item"
       />
     </div>
+  </div>
+
+   <!-- TOAST -->
+  <div class="global-toast" *ngIf="toastMessage">
+    {{ toastMessage }}
+  </div>
+
+
+<!-- RESEÑAS -->
+  <div class="content">
+
+    <app-review
+      [itemId]="stay.id"
+      [itemType]="'stay'"
+      [parentReviews]="reviews"
+      (refreshReviews)="onRefreshReviews()">
+    </app-review>
+
   </div>
 
 </div>

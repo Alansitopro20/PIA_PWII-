@@ -12,6 +12,11 @@ import { PlacesDetailComponent } from './places-detail/places-detail.component';
 import { StadiumDetailComponent } from './stadium-detail/stadium-detail.component';
 import { StayDetailComponent } from './stay-detail/stay-detail.component';
 import { PostsComponent } from './posts/posts.component';
+import { ReviewComponent } from './review/review.component';
+import { StadiumByCityComponent } from './stadium-by-city/stadium-by-city.component';
+import { SearchComponent } from './search/search.component';
+
+
 
 
 export const routes: Routes = [
@@ -35,7 +40,7 @@ export const routes: Routes = [
         component: StadiumsComponent,
     },{
         path:'posting',
-        component: PostsComponent
+        component: ReviewComponent
 
     },{
         path:'stay',
@@ -58,5 +63,23 @@ export const routes: Routes = [
     },{
         path:'home',
         component: HomeComponent,
+    },{
+        path: 'stay/by_city/:city',
+        loadComponent: () =>
+            import('./stay-by-city/stay-by-city.component').then(m => m.StayByCityComponent)
+    },{
+        path:'places/by_city/:city',
+        loadComponent:()=>
+            import('./place-by-city/place-by-city.component').then(m=>m.PlaceByCityComponent)
+    },{
+        path:'stadium/by_city/:city',
+        loadComponent:()=>
+            import('./stadium-by-city/stadium-by-city.component').then(m=>StadiumByCityComponent)
+    },{
+        path:'search',
+        component:SearchComponent,
+    },{
+        path:'**',
+        component:HomeComponent,
     }
 ];

@@ -1,7 +1,16 @@
 from fastapi import APIRouter, UploadFile, File, Form, Depends, Body, HTTPException, status, Form
 from fastapi.security import OAuth2PasswordRequestForm
-from models.user import User, UserCredentials, LoginResponse, Token, UserProfileResponse
-from controllers.usercontroller import create_user, login_user, login_dev, get_user_by_email
+from models.user import User, UserCredentials, LoginResponse, Token, UserProfileResponse, UserResponse, FavoriteRequest
+from controllers.usercontroller import (
+    create_user,
+    login_user,
+    login_dev,
+    get_user_by_email,
+    add_favorite,
+    remove_favorite,
+    get_favorites,
+    is_email_registered
+)
 from utils.auth import get_current_user
 import shutil
 import os
@@ -92,3 +101,31 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
             headers={"WWW-Authenticate": "Bearer"},
         )
     return result
+
+# FAVORITOS
+@router.post("/favorites/add")
+async def add_to_favorites(
+    data: FavoriteRequest,
+    current_user: dict = Depends(get_current_user)
+):
+    success = await add_favorite(current_user["id"], data.item_type, data.item_id, data.item_name)
+    if not success:
+        raise HTTPException(400, "No se pudo agregar el favorito.")
+    return {"message": "Agregado a favoritos"}
+
+
+@router.post("/favorites/remove")
+async def remove_from_favorites(
+    data: FavoriteRequest,
+    current_user: dict = Depends(get_current_user)
+):
+    success = await remove_favorite(current_user["id"], data.item_type, data.item_id, data.item_name)
+    if not success:
+        raise HTTPException(400, "No se pudo quitar el favorito.")
+    return {"message": "Eliminado de favoritos"}
+
+
+@router.get("/favorites")
+async def get_my_favorites(current_user: dict = Depends(get_current_user)):
+    favs = await get_favorites(current_user["id"])
+    return favs

@@ -17,13 +17,17 @@ router = APIRouter(prefix="/cities", tags=["Cities"])
 @router.post("/create", response_model=str)
 async def register_city(
     name: str = Form(...),
+    subtitulo: Optional[str] = Form(None),
     description: str = Form(...),
     clima: float = Form(...),
     poblacion: int = Form(...),
     gentilicio: str = Form(...),
     estadoRep: str = Form(...),
+    dato_curioso: List[str]=Form(None),
     imagenPrincipal: UploadFile = File(...),
-    galeria: List[UploadFile] = File(None)
+    galeria: List[UploadFile] = File(None),
+    video_url: Optional[str] = Form(None)   
+
 ):
 
     # === GUARDAR IMAGEN PRINCIPAL ===
@@ -52,13 +56,17 @@ async def register_city(
     # === DATOS A BASE DE DATOS ===
     city_data = {
         "name": name,
+        "subtitulo": subtitulo,
         "description": description,
         "clima": clima,
         "poblacion": poblacion,
         "gentilicio": gentilicio,
         "estadoRep": estadoRep,
+        "dato_curioso":dato_curioso,
         "imagenPrincipal": imagenPrincipal_url,
-        "galeria": galeria_urls
+        "galeria": galeria_urls,
+        "video_url": video_url 
+
     }
 
     city_id = await createCity(city_data)
@@ -79,3 +87,5 @@ async def read_city_by_name(name: str):
         raise HTTPException(status_code=404, detail="City not found")
 
     return city
+
+

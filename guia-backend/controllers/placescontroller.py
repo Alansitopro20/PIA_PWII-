@@ -30,3 +30,13 @@ async def get_place_by_name(name: str):
     del place["_id"]
 
     return Places(**place)
+
+async def get_place_by_city(ciudad:str):
+    places=[]
+    cursor=collection.find({"ciudad":ciudad})
+    async for document in cursor:
+        document["id"]=str(document["_id"])
+        del document["_id"]
+        places.append(Places(**document))
+
+    return places

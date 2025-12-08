@@ -1,27 +1,88 @@
-<div class="main-container">
-    <div class="card">
-        <a href="/login">Login</a>
+<!-- src/app/home/components/home/home.component.html -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Descubre los mejores lugares</h1>
+    <p>Guía de ciudades, estadios, hospedajes y experiencias — todo en un solo lugar.</p>
+    <div class="hero-actions">
+      
     </div>
-    <div class="card">
-        <a href="/profile">Profile</a>
+  </div>
+</section>
+
+<main class="container">
+  <div *ngIf="loading" class="loading">Cargando...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- Featured Cities -->
+  <section *ngIf="data?.featuredCities?.length" class="section">
+    <h2>Ciudades destacadas</h2>
+    <div class="grid cities">
+      <article *ngFor="let city of data?.featuredCities" class="card city-card" (click)="goToCity(city)">
+        <div class="card-media"
+            [style.backgroundImage]="'url(http://localhost:8000/' + city.imagenPrincipal + ')'">
+        </div>
+        <div class="card-body">
+          <h3>{{ city.name }}</h3>
+          <button class="link">Ver guía →</button>
+        </div>
+      </article>
     </div>
-    <div class="card">
-        <a href="/register">Signin</a>
+  </section>
+
+  <!-- Top Places -->
+  <section *ngIf="data?.topPlaces?.length" class="section">
+    <h2>Lugares recomendados</h2>
+    <div class="grid places">
+      <article *ngFor="let place of data?.topPlaces" class="card small-card" (click)="goToPlace(place)">
+        <img [src]="'http://localhost:8000/' + place.imagenPrincipal" alt="{{ place.name }}" />
+        <div class="card-body">
+          <strong>{{ place.name }}</strong>
+          <small>{{ place.city }}</small>
+        </div>
+      </article>
     </div>
-    <div class="card">
-        <a href="/cities">Cities</a>
+  </section>
+
+  <!-- Top Stays -->
+  <section *ngIf="data?.topStays?.length" class="section">
+    <h2>Hospedajes populares</h2>
+    <div class="grid stays">
+      <article *ngFor="let stay of data?.topStays" class="card small-card" (click)="goToStay(stay)">
+        <img [src]="'http://localhost:8000/' + stay.imagenPrincipal" alt="{{ stay.name }}" />
+        <div class="card-body">
+          <strong>{{ stay.name }}</strong>
+          <small>{{ stay.city }}</small>
+        </div>
+      </article>
     </div>
-    <div class="card">
-        <a href="/posting">Posting</a>
+  </section>
+
+  <article *ngFor="let stadium of data?.topStadiums" class="card" (click)="goToStadium(stadium)">
+        <img [src]="'http://localhost:8000/' + stadium.imagenPrincipal" alt="{{ stadium.name }}" />
+    <div class="card-body">
+        <h3>{{ stadium.name }}</h3>
+        <p>{{ stadium.city }}</p>
     </div>
-    <div class="card">
-        <a href="/places">Puntos turísticos</a>
+    </article>
+
+
+  <!-- Recent Reviews -->
+  <section *ngIf="data?.recentReviews?.length" class="section reviews">
+    <h2>Reseñas recientes</h2>
+    <div class="reviews-list">
+      <blockquote *ngFor="let r of data?.recentReviews">
+        "{{ r.comentario }}" <cite>— {{ r.user_name  || 'Anónimo' }} — Rating: {{ r.rating}} — {{r.item_type}}</cite>
+      </blockquote>
     </div>
-    <div class="card">
-        <a href="/stay">Hospedaje</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>© {{ currentYear }} Tu Guía</div>
+    <div class="links">
+      <a routerLink="/about">Acerca</a>
+      <a routerLink="/contact">Contacto</a>
     </div>
-    <div class="card">
-        <a href="/stadiums">Estadios</a>
-    </div>
-    
-</div>
+  </div>
+</footer>

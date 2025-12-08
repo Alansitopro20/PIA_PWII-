@@ -17,10 +17,17 @@ async def create_user(user_data):
 
 async def get_user_by_email(email):
     user = await collection.find_one({"email": email})
-    if user:
-        user["id"] = str(user["_id"])
-        del user["_id"]
+    if not user:
+        return None
+    user["id"] = str(user["_id"])
+    del user["_id"]
     return user
+
+async def is_email_registered(email: str) -> bool:
+    """Devuelve True si el correo ya existe, False si no."""
+    user = await collection.find_one({"email": email})
+    return user is not None
+
 
 async def login_dev(username: str, password: str):
     user = await collection.find_one({"email": username})
@@ -32,11 +39,62 @@ async def login_dev(username: str, password: str):
     
     # Generar token JWT
     token_data = {
-        "sub": str(user["_id"]),
-        "email": user["email"]
+        "sub": str(user["_id"]),  # ✔ importante
+        "email": user["email"],
+        "name":user["name"],
+        "type":user["type"],
+        "photo":user["photo"]
     }
+
     token = create_access_token(token_data)
-    return {"access_token": token, "token_type": "bearer"}
+
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }
+
+
+# FAVORITOS
+async def add_favorite(user_id: str, item_type: str, item_id: str, item_name: str):
+    allowed = ["places", "stays", "stadiums","cities"]
+    if item_type not in allowed:
+        return False
+
+    favorite_obj = {
+        "item_id": item_id,
+        "item_name": item_name
+    }
+
+    result = await collection.update_one(
+        {"_id": ObjectId(user_id)},
+        {"$addToSet": {f"favorites.{item_type}": favorite_obj}}
+    )
+    return result.modified_count > 0
+
+async def remove_favorite(user_id: str, item_type: str, item_id: str, item_name:str):
+    allowed = ["places", "stays", "stadiums", "cities"]
+    if item_type not in allowed:
+        return False
+    
+    favorite_obj = {
+        "item_id": item_id,
+        "item_name": item_name
+    }
+
+    result = await collection.update_one(
+        {"_id": ObjectId(user_id)},
+        {"$pull": {f"favorites.{item_type}": favorite_obj}}
+    )
+    return result.modified_count > 0
+
+
+async def get_favorites(user_id: str):
+    user = await collection.find_one({"_id": ObjectId(user_id)})
+    if not user:
+        return None
+    return user.get("favorites", {})
+
+
 
 async def login_user(credentials):
     user = await collection.find_one({"email": credentials["email"]})
@@ -47,7 +105,10 @@ async def login_user(credentials):
         # Generar token JWT
         token_data = {
             "sub": user_id,  # "sub" es un estándar para el ID del usuario en JWT
-            "email": user["email"]
+            "email": user["email"],
+            "name":user["name"],
+            "type":user["type"],
+            "photo":user["photo"]
         }
         token = create_access_token(token_data)
         

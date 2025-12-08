@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Form, File, UploadFile, HTTPException
 from typing import List, Optional
 from models.stadiums import Stadiums
-from controllers.stadiumscontroller import get_all_stadiums, createStadium, get_stadium_by_name
+from controllers.stadiumscontroller import get_all_stadiums, createStadium, get_stadium_by_name,get_stadium_by_city
 from utils.auth import get_current_user
 import shutil
 import os
@@ -18,13 +18,14 @@ router = APIRouter(prefix="/stadiums", tags=["Stadiums"])
 @router.post("/create", response_model=str)
 async def register_stadium(
     name: str = Form(...),
+    subtitulo: str=Form(...),
     descripcion: str = Form(...),
     capacidad: float = Form(...),
     ciudad: str = Form(...),
 
     imagenPrincipal: UploadFile = File(...),
-    galeria: List[UploadFile] = File(None)
-
+    galeria: List[UploadFile] = File(None),
+    video_url: Optional[str] = Form(None)   
 ):
      # === GUARDAR IMAGEN PRINCIPAL ===
     filename = f"{uuid4()}{os.path.splitext(str(imagenPrincipal.filename))[1]}"
@@ -54,10 +55,12 @@ async def register_stadium(
     stadium_data = {
         "name": name,
         "descripcion": descripcion,
+        "subtitulo": subtitulo,
         "capacidad": capacidad,
         "ciudad": ciudad,
         "imagenPrincipal": imagenPrincipal_url,
-        "galeria": galeria_urls
+        "galeria": galeria_urls,
+        "video_url":video_url,
     }
 
     stadium_id = await createStadium(stadium_data)
@@ -67,6 +70,18 @@ async def register_stadium(
 @router.get("/", response_model=List[Stadiums])
 async def read_stadiums():
     return await get_all_stadiums()
+
+@router.get("/by_city/{ciudad}",response_model=List[Stadiums])
+async def get_stadiums_by_city(ciudad:str):
+    decoded=unquote(ciudad)
+
+    stadiums=await get_stadium_by_city(decoded)
+
+    if not stadiums:
+        raise  HTTPException(status_code=404, detail="No stadiums found in this city")
+    return stadiums
+
+
 
 @router.get("/{name}", response_model=Stadiums)
 async def read_stadium_by_name(name: str):

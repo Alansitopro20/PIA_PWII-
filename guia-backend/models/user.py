@@ -6,8 +6,14 @@ class User(BaseModel):
     email: str
     name: str
     password: str
-    type: str
+    type: str # local o turista
     photo: Optional[str] = None  # Aquí guardaremos solo el nombre o la URL del archivo
+    favorites: Optional[dict] = {
+        "places": [],
+        "stays": [],
+        "stadiums": [],
+        "cities":[]
+    }
     
 class UserCredentials(BaseModel):
     email: str
@@ -38,5 +44,13 @@ class UserProfileResponse(BaseModel):
     photo: Optional[str] = None
     role: str
     city:Optional[str]=None
+    favorites: Optional[dict] = None
+
+
+class FavoriteRequest(BaseModel):
+    item_type: str
+    item_id: str
+    item_name:str
+
 
     

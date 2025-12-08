@@ -29,4 +29,8 @@ export class PlaceService{
     getPlaceByName(name: string): Observable<PlaceModel>{
       return this.http.get<PlaceModel>(`http://localhost:8000/places/${name}`)
     }
+
+    getPlaceByCity(city: string) {
+      return this.http.get<PlaceModel[]>(`http://localhost:8000/places/by_city/${city}`);
+    }
 }

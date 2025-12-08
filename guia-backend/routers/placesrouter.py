@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Form, File, UploadFile, HTTPException, status
 from typing import List, Optional
 from models.places import Places
-from controllers.placescontroller import get_all_places, createPlace, get_place_by_name
+from controllers.placescontroller import get_all_places, createPlace, get_place_by_name,get_place_by_city
 from utils.auth import get_current_user
 import shutil
 import os
@@ -17,11 +17,14 @@ router = APIRouter(prefix="/places", tags=["Places"])
 @router.post("/create", response_model=str)
 async def register_place(
     name: str = Form(...),
+    ciudad:str=Form(...),
+    subtitulo: str=Form(...),
     descripcion: str = Form(...),
     categoria: str = Form(...),
     calificacion: float = Form(...),
     imagenPrincipal: UploadFile = File(...),
-    galeria: List[UploadFile] = File(None)
+    galeria: List[UploadFile] = File(None),
+    video_url: Optional[str] = Form(None) 
     
 ):
     # === GUARDAR IMAGEN PRINCIPAL ===
@@ -50,11 +53,14 @@ async def register_place(
     # === DATOS A BASE DE DATOS ===
     place_data = {
         "name": name,
+        "subtitulo": subtitulo,
+        "ciudad":ciudad,
         "descripcion": descripcion,
         "categoria": categoria,
         "calificacion": calificacion,
         "imagenPrincipal": imagenPrincipal_url,
-        "galeria": galeria_urls
+        "galeria": galeria_urls,
+        "video_url":video_url
     }
 
     place_id = await createPlace(place_data)
@@ -64,6 +70,17 @@ async def register_place(
 @router.get("/", response_model=List[Places])
 async def read_places():
     return await get_all_places()
+
+@router.get("/by_city/{ciudad}",response_model=List[Places])
+async def get_places_by_city(ciudad:str):
+    decoded=unquote(ciudad)
+
+    places=await get_place_by_city(decoded)
+
+    if not places:
+        raise HTTPException(status_code=404, detail="No places found in this city")
+    return places
+
 
 @router.get("/{name}", response_model=Places)
 async def read_place_by_name(name: str):
