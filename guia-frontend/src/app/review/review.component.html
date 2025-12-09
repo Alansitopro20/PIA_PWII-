@@ -19,8 +19,8 @@
     </div>
 
     <div class="rating">
-      ⭐ {{ r.rating }}
-    </div>
+  {{ '⭐'.repeat(r.rating) + '☆'.repeat(5 - r.rating) }}
+</div>
 
     <p class="comment">
       {{ r.comentario }}
@@ -52,12 +52,10 @@
 
     <label>Calificación:</label>
     <select formControlName="rating">
-      <option [value]="1">1⭐</option>
-      <option [value]="2">2⭐</option>
-      <option [value]="3">3⭐</option>
-      <option [value]="4">4⭐</option>
-      <option [value]="5">5⭐</option>
-    </select>
+  <option *ngFor="let n of [1,2,3,4,5]" [value]="n">
+    {{ '⭐'.repeat(n) }}
+  </option>
+</select>
 
     <label>Comentario:</label>
     <textarea formControlName="comment"></textarea>
