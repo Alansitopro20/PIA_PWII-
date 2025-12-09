@@ -4,14 +4,14 @@ import { CityService } from '../services_/cityservice';
 import { CityModel } from '../models_/citymodel';
 import { CommonModule } from '@angular/common';
 import { SafeUrlPipe } from '../pipe/safe-url.pipe';
-import { Router } from '@angular/router';
+import { Router,RouterModule } from '@angular/router';
 import { Userservice } from '../services_/userservice';
 
 
 @Component({
   selector: 'app-city-detail',
   standalone: true,
-  imports: [CommonModule, SafeUrlPipe],
+  imports: [CommonModule, SafeUrlPipe, RouterModule],
   templateUrl: './city-detail.component.html',
   styleUrl: './city-detail.component.scss'
 })

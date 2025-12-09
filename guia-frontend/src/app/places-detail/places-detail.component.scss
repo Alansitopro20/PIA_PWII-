@@ -31,19 +31,63 @@ h1 {
   margin-bottom: 25px;
 }
 
-.gallery {
-  margin-top: 20px;
-}
+  .gallery {
+    width: 85%;
+    margin: 0 auto;
+    text-align: center;
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 15px;
-}
+    h3 {
+      color: #2ecc71;
+    }
 
-.gallery-item {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 10px;
-}
+    .gallery-viewer {
+      position: relative;
+      background: #11141b;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(46, 204, 113, 0.15);
+
+      .gallery-image {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 15px;
+      }
+
+      .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #2ecc71;
+        font-size: 2rem;
+        cursor: pointer;
+
+        &.left {
+          left: 10px;
+        }
+        &.right {
+          right: 10px;
+        }
+      }
+    }
+
+    .dots {
+      margin-top: 10px;
+
+      .dot {
+        height: 10px;
+        width: 10px;
+        margin: 0 5px;
+        background: #444;
+        border-radius: 50%;
+        display: inline-block;
+        cursor: pointer;
+
+        &.active {
+          background: #2ecc71;
+        }
+      }
+    }
+  }

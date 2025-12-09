@@ -1,4 +1,3 @@
-<!-- ===== NAVBAR ESTILO RED SOCIAL ===== -->
 <nav class="wc-nav">
   <div class="nav-left">
     <img 
@@ -10,18 +9,27 @@
 
   <ul class="nav-menu">
     <li>
-      <a routerLink="/home" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/home" routerLinkActive="active">Inicio</a>
+    </li>
+    <li>
+      <a routerLink="/stay" routerLinkActive="active">Hospedajes</a>
+    </li>
+    <li>
+      <a routerLink="/stadiums" routerLinkActive="active">Estadios</a>
+    </li>
+    <li>
+      <a routerLink="/places" routerLinkActive="active">Lugares</a>
+    </li>
+    <li>
+      <a routerLink="/cities" routerLinkActive="active">Ciuidades</a>
     </li>
     <li>
       <a routerLink="/profile" routerLinkActive="active" class="active">Mi Perfil</a>
     </li>
-    <li>
-      <a routerLink="/posting" routerLinkActive="active">Publicar</a>
-    </li>
   </ul>
 
   <button class="logout-btn" (click)="logout()">
-    Cerrar Sesion
+    Cerrar Sesion 
     <i class="bi bi-box-arrow-right"></i>
   </button>
 </nav>
@@ -86,12 +94,7 @@
       </div>
     </div>
 
-    <!-- Botón cerrar sesión -->
-    <div class="logout-container">
-      <button class="btn-logout-modern" (click)="logout()">
-        Editar
-      </button>
-    </div>
+    
   </div>
 
   <!-- ===== MIS FAVORITOS ===== -->

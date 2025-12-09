@@ -50,6 +50,11 @@ export class HomeComponent {
   goToStadium(stadium: any) {
     this.router.navigate(['/stadium', stadium.name]); // ruta singular
   }
+
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }
 
 

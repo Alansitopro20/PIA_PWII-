@@ -26,6 +26,7 @@ export class PlacesDetailComponent {
     isFavorite: boolean = false;
     userId: string = '';
     toastMessageFav: string = '';
+    currentImage = 0;
   
     constructor(
       private route: ActivatedRoute,
@@ -119,6 +120,23 @@ export class PlacesDetailComponent {
         this.showToast('Eliminado de favoritos 💔');
       });
     }
+  }
+
+  // GALERIA 
+  nextImage() {
+    if (!this.place?.galeria) return;
+    this.currentImage = (this.currentImage + 1) % this.place.galeria.length;
+  }
+
+  prevImage() {
+    if (!this.place?.galeria) return;
+    this.currentImage =
+      (this.currentImage - 1 + this.place.galeria.length) %
+      this.place.galeria.length;
+  }
+
+  goToImage(index: number) {
+    this.currentImage = index;
   }
 
 }

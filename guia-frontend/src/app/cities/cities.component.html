@@ -1,3 +1,40 @@
+<nav class="wc-nav">
+  <div class="nav-left">
+    <img 
+      src="https://panamericanworld.com/wp-content/uploads/2024/05/copa-mundial-2026.jpg" 
+      class="nav-logo" 
+    />
+    <span class="nav-title">Mundial 2026 • Turismo</span>
+  </div>
+
+  <ul class="nav-menu">
+    <li>
+      <a routerLink="/home" routerLinkActive="active">Inicio</a>
+    </li>
+    <li>
+      <a routerLink="/stay" routerLinkActive="active">Hospedajes</a>
+    </li>
+    <li>
+      <a routerLink="/stadiums" routerLinkActive="active">Estadios</a>
+    </li>
+    <li>
+      <a routerLink="/places" routerLinkActive="active">Lugares</a>
+    </li>
+    <li>
+      <a routerLink="/cities" routerLinkActive="active">Ciuidades</a>
+    </li>
+    <li>
+      <a routerLink="/profile" routerLinkActive="active" class="active">Mi Perfil</a>
+    </li>
+  </ul>
+
+  <button class="logout-btn" (click)="logout()">
+    Cerrar Sesion 
+    <i class="bi bi-box-arrow-right"></i>
+  </button>
+</nav>
+
+
 <!-- cities.component.html -->
 <div class="cities-container">
   <h2 class="mb-4">Ciudades sede</h2>

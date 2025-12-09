@@ -1,10 +1,43 @@
+<nav class="wc-nav">
+  <div class="nav-left">
+    <img 
+      src="https://panamericanworld.com/wp-content/uploads/2024/05/copa-mundial-2026.jpg" 
+      class="nav-logo"/>
+    <span class="nav-title">LaGuiaMX</span>
+  </div>
+
+  <ul class="nav-menu">
+    <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
+    <li><a routerLink="/stay" routerLinkActive="active">Hospedajes</a></li>
+    <li><a routerLink="/stadiums" routerLinkActive="active">Estadios</a></li>
+    <li><a routerLink="/places" routerLinkActive="active">Lugares</a></li>
+    <li><a routerLink="/cities" routerLinkActive="active">Ciudades</a></li>
+    <li><a routerLink="/profile" routerLinkActive="active">Mi Perfil</a></li>
+  </ul>
+
+  <!-- 🔍 Botón de búsqueda -->
+  <button class="search-btn" routerLink="/search">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+
+  <button class="logout-btn" (click)="logout()">
+    Cerrar Sesion 
+    <i class="bi bi-box-arrow-right"></i>
+  </button>
+</nav>
+
+
+
+
 <!-- src/app/home/components/home/home.component.html -->
 <section class="hero">
   <div class="hero-inner">
-    <h1>Descubre los mejores lugares</h1>
-    <p>Guía de ciudades, estadios, hospedajes y experiencias — todo en un solo lugar.</p>
+    <h1>¡BIENVENIDO!</h1>
+    <p>Descubre los mejores lugares para visitar con nuetra GUIA TURISTICA </p>
     <div class="hero-actions">
-      
+      <button>
+        SUBIR
+      </button>
     </div>
   </div>
 </section>
@@ -75,14 +108,19 @@
       </blockquote>
     </div>
   </section>
+
 </main>
 
 <footer class="footer">
   <div class="container footer-inner">
-    <div>© {{ currentYear }} Tu Guía</div>
+    <div>© {{ currentYear }} Guia MX</div>
     <div class="links">
       <a routerLink="/about">Acerca</a>
       <a routerLink="/contact">Contacto</a>
     </div>
   </div>
 </footer>
+
+
+
+

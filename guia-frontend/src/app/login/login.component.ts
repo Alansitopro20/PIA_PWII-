@@ -60,7 +60,7 @@ import { RouterModule } from '@angular/router';
       next: (response) => {
         this.showToast('Inicio de sesión exitoso 🎉');
         sessionStorage.setItem('user', JSON.stringify(response));
-        window.location.href = '/profile';
+        window.location.href = '/home';
       },
       error: () => {
         this.showToast('Error al iniciar sesión 😢');

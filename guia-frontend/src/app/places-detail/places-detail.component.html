@@ -40,18 +40,42 @@
     <p><strong>Calificación:</strong> ⭐ {{ place.calificacion }}</p>
   </div>
 
-  <!-- Galería -->
+  
+<!--Galeria-->
   <div class="gallery" *ngIf="place.galeria?.length">
-    <h3>Galería</h3>
+  <h3>Galería</h3>
 
-    <div class="gallery-grid">
-      <img 
-        *ngFor="let img of place.galeria"
-        [src]="'http://localhost:8000/' + img"
-        class="gallery-item"
-      />
-    </div>
+  <div class="gallery-viewer">
+    
+    <!-- Flecha izquierda -->
+    <button class="arrow left" (click)="prevImage()">
+      &#10094;
+    </button>
+
+    <!-- Imagen actual -->
+    <img 
+      class="gallery-image"
+      [src]="'http://localhost:8000/' + place.galeria[currentImage]"
+    />
+
+    <!-- Flecha derecha -->
+    <button class="arrow right" (click)="nextImage()">
+      &#10095;
+    </button>
+
   </div>
+
+  <!-- Indicadores (bolitas) -->
+  <div class="dots">
+    <span 
+      *ngFor="let img of place.galeria; let i = index"
+      class="dot"
+      [class.active]="i === currentImage"
+      (click)="goToImage(i)">
+    </span>
+  </div>
+
+</div>
 
     <!-- TOAST -->
   <div class="global-toast" *ngIf="toastMessage">
